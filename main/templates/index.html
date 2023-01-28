@@ -1,0 +1,40 @@
+{% extends "base_main.html" %}
+{% load static %}
+{% block title %}La spesa più bassa {% endblock title %}
+  {% block keywords %}confronta, prezzi, spesa , supermercato{% endblock keywords %}
+  {% block description %}Fai La Spesa Al Prezzo Migliore{% endblock description %}
+{% block anteprima %}<meta property="og:image"   content='{% static "images/python-pip-logo.png" %}'/>
+{% endblock anteprima %}
+{% block content %}
+<div class="row align-content-center">
+  <div class="col-12 text-center"id="main_title">
+    <div>Risparmia sulla spesa
+    </div>
+  </div>
+</div>
+<div class="row align-content-sm-start">
+  <div class="col-3 text-center"id="div_search">
+    <form class="card card-sm">
+      <div class="card-body row no-gutters align-items-center">
+          <div class="col-auto">
+              <i class="fas fa-search h4 text-body"></i>
+          </div>
+          <!--end of col-->
+          <div class="col">
+            <input id="search" value class="form-control form-control-sm form-control-borderless" 
+              type="search" placeholder="Cerca alimento da inserire nel carrello"/>
+          </div>
+          <!--end of col-->
+          <div class="col-auto">
+              <button id="submitSearch"class="btn btn-sm btn-success" type="submit">Search</button>
+          </div>
+          <!--end of col-->
+      </div>
+  </form>
+  </div>
+</div>
+
+<script>
+var generi=("{{ data|escapejs }}")
+</script>
+{% endblock content %}

@@ -1,0 +1,40 @@
+body { min-height: 100vh;}
+
+/*@include media-breakpoint-up(sm) {
+  html {
+    font-size: 1.2rem;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  html {
+    font-size: 1.4rem;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  html {
+    font-size: 1.6rem;
+  }
+}
+*/
+
+#main_title{
+  width:60%;
+}
+
+@media screen and (max-width: 500px) {
+  input#ligeneri{ 
+  font-size:2rem;
+  }
+}
+
+.form-control-borderless {
+  border: none;
+}
+
+.form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+  border: none;
+  outline: none;
+  box-shadow:0rem,1rem;
+}

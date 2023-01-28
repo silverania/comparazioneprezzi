@@ -1,0 +1,58 @@
+
+
+body {
+    font-family: 'Titillium Web', sans-serif;
+}
+a{
+    /* color:blue; */
+    font-size:0.6rem;
+}
+
+a{
+    color:blue;
+    font-size:0.6rem;
+}
+
+a#a_reg> span{
+    font-size:1rem;
+}
+
+a:hover {
+    opacity: 0.5;
+    color:rgb(11, 7, 0);
+    text-decoration:none;
+}
+
+.input-group-addon{
+    height:inherit;
+    margin-right:5px;
+    margin-top:1%;
+}
+.fa-key{
+    font-size:1.3em!important;
+    margin-left:-5px!important;
+}
+
+
+
+
+
+@media (max-width: 990px) {
+
+    .facebook , .twitter , .google{
+        font-size: 1.3rem;
+    }
+    .col-social{
+        margin:10px;
+    }
+    h3 {
+        margin-left:30px!important;
+    }
+}
+
+@media (min-width: 990px) {
+    .facebook , .twitter , .google{
+        font-size: 1.5rem;
+    }
+
+}

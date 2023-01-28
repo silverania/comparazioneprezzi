@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="it" >
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <meta name="author" content="silverania">
+        {% block anteprima %}{% endblock %}
+        <title>Registrazione</title>
+        <link rel="icon" type="image/x-icon" href="{% static "images/favicon.ico" %}">
+        <link rel="stylesheet" href="{% static "node_modules/bootstrap/dist/css/bootstrap.css"%}">
+        <link rel="stylesheet" href="{% static "css/all.min.css" %}">
+        <link rel="stylesheet" href="{% static "css/register.css" %}">
+        <link rel="stylesheet" href="{% static "css/login.css"%}">
+
+        <script  src="{% static 'node_modules/@popperjs/core/dist/umd/popper.js' %}"></script>
+        <script  src="{% static 'node_modules/bootstrap/dist/js/bootstrap.js' %}"></script>
+
+
+
+
+  <script  src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static "js/getParams.js"%}"></script>
+<script src="{% static "js/all.min.js"%}"></script>
+  <script src="{% static 'js/sendAsyncAuthData.js' %}"></script>
+</head>
+
+
+  <!--script  src="{% static 'js/blog.js'%}"></script-->
+
+
+<!--script  src="{% static 'js/aside.js' %}"></script-->
+<body>
+
+  {% block content %}
+  {% endblock %}
+
+
+
+
+  </body>
+  </html>
