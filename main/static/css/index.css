@@ -1,8 +1,9 @@
 body { min-height: 100vh;}
+body {min-width:100vh;}
 
-/*@include media-breakpoint-up(sm) {
+@include media-breakpoint-up(sm) {
   html {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 }
 
@@ -17,24 +18,74 @@ body { min-height: 100vh;}
     font-size: 1.6rem;
   }
 }
-*/
 
-#main_title{
-  width:60%;
+span,p[id^=p_]{
+  font-size: 0.8rem;
+  line-height:1;
+  margin-bottom: 0;
 }
 
-@media screen and (max-width: 500px) {
-  input#ligeneri{ 
-  font-size:2rem;
+div[id^=col_Image_]{
+    min-width: 100px;
+  }
+
+img[id^=img_product]{
+  width: 90px;
+  height:auto;
+}
+
+div#divForm{
+  margin:0 auto;
+}
+
+div[id^=div_]{
+  width:fit-content;
+  max-width:100%;
+}
+
+[id^=colProductName]{
+  width:100%;
+  margin-top:0;
+  padding:0;
+}
+@media screen and (max-width: 992px) {
+  /*#formsearch{
+    width:100%;
+  }*/
+
+}
+
+[id^=p_prezzo]{
+  color:green;
+}
+
+p{
+  width: fit-content;
+}
+
+#span_aggiungi{
+  font-size:0.6rem;
+}
+#button_aggiungi{
+  margin:0 auto;
+}
+
+@media screen and (max-width: 574px) {
+  /*#formsearch{
+    width:100%;
+  }*/
+  span,p[id^=p_]{
+    font-size:0.8rem;
+    line-height:1;
+    margin-bottom: 0;
   }
 }
-
-.form-control-borderless {
+/*.form-control-borderless {
   border: none;
-}
+}*/
 
-.form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+/*.form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
   border: none;
   outline: none;
   box-shadow:0rem,1rem;
-}
+}*/

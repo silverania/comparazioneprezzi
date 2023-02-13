@@ -1,40 +1,50 @@
 {% extends "base_main.html" %}
 {% load static %}
-{% block title %}La spesa più bassa {% endblock title %}
-  {% block keywords %}confronta, prezzi, spesa , supermercato{% endblock keywords %}
-  {% block description %}Fai La Spesa Al Prezzo Migliore{% endblock description %}
-{% block anteprima %}<meta property="og:image"   content='{% static "images/python-pip-logo.png" %}'/>
+{% block title %}
+  La spesa più bassa
+{% endblock title %}
+{% block keywords %}
+  confronta, prezzi, spesa , supermercato, Caserta ,
+{% endblock keywords %}
+{% block description %}
+  Fai La Spesa Al Prezzo Migliore
+{% endblock description %}
+{% block anteprima %}
+  <meta property="og:image" />
 {% endblock anteprima %}
 {% block content %}
-<div class="row align-content-center">
-  <div class="col-12 text-center"id="main_title">
-    <div>Risparmia sulla spesa
+  <div class="container-fluid">
+    <div class="row mt-3 justify-content-center">
+      <div class="col-12 text-center" id="main_title">
+        <div>Risparmia sulla spesa</div>
+      </div>
+    </div>
+    <div id="containersearch" class="container-fuid">
+      <div class="row mt-4">
+        <div class="col-12 col-md-12">
+          <form id="formSearch" class="form-inline" action="javascript:void(0);">
+            <div class="form-group" id="divForm">
+              <i class="fas fa-search h4 text-body"></i>
+              <input id="inputSearch" value class="mb-2 form-control-sm form-control-borderless" type="search" placeholder="metti nel carrello" />
+              <button id="buttonSearch" class="mb-2 btn btn-sm btn-success" type="submit">Search</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid" id="containerprodotti">
+      <div class="row mt-5" id="rowprodotti">
+        <div class="col-7 offset-1" id="colprodotti">
+          PRODOTTI
+        </div>
+        <div class="col-4" id="div_carrello">
+          carrello
+        </div>
+      </div>
     </div>
   </div>
-</div>
-<div class="row align-content-sm-start">
-  <div class="col-3 text-center"id="div_search">
-    <form class="card card-sm">
-      <div class="card-body row no-gutters align-items-center">
-          <div class="col-auto">
-              <i class="fas fa-search h4 text-body"></i>
-          </div>
-          <!--end of col-->
-          <div class="col">
-            <input id="search" value class="form-control form-control-sm form-control-borderless" 
-              type="search" placeholder="Cerca alimento da inserire nel carrello"/>
-          </div>
-          <!--end of col-->
-          <div class="col-auto">
-              <button id="submitSearch"class="btn btn-sm btn-success" type="submit">Search</button>
-          </div>
-          <!--end of col-->
-      </div>
-  </form>
-  </div>
-</div>
-
-<script>
-var generi=("{{ data|escapejs }}")
-</script>
-{% endblock content %}
+  <script>
+    var generi = '{{ data|escapejs }}'
+    insertProduct()
+  </script>
+{% endblock %}

@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
     'main',
 ]
 
@@ -125,9 +124,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/home/mario/dev/comparazioneprezzi/media/'
+MEDIA_ROOT = '/home/mario/dev/comparazionePrezzi/media/'
 STATIC_URL = '/static/'
-STATIC_ROOT = "/home/mario/dev/comparazioneprezzi/static/"
+STATIC_ROOT = "/home/mario/dev/comparazionePrezzi/static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
