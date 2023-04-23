@@ -66,10 +66,11 @@ function insertProduct() {
     }
     for (var c = 0; c < productsParse.product.length; c++) {
       let temp = JSON.parse(productsParse.product[c]);
-      if (temp[0].model === "main.prodotto" && temp[0].fields.name.toUpperCase().includes(searchValue.toUpperCase())) {
-        extract.push(JSON.parse(productsParse.product[c]));
-      }
-      else { continue; }
+      if (searchValue !== "")
+        if (temp[0].model === "main.prodotto" && temp[0].fields.name.toUpperCase().includes(searchValue.toUpperCase())) {
+          extract.push(JSON.parse(productsParse.product[c]));
+        }
+        else { continue; }
     }
     addElementToScreeen(extract);
   }
@@ -92,7 +93,7 @@ function insertProduct() {
       elProdotto.setAttribute("class", "row");
       rowCarrello[i].classList.add("row");
       rowCarrello[i].classList.add("justify-content-center");
-      $(rowCarrello[i]).append('<button class="btn btn-warning button_aggiungi" onclick="inCarrello()" class="btn btn-sm btn-primary"><span id="span_aggiungi_'+el[0][i].fields.name+"_"+el[0][i].pk+'">Nel Carrello</span></button>');
+      $(rowCarrello[i]).append('<button class="btn btn-warning button_aggiungi" onclick="inCarrello()" class="btn btn-sm btn-primary"><span id="span_aggiungi_' + el[0][i].fields.name + "_" + el[0][i].pk + '">Nel Carrello</span></button>');
       colprodotto[i].classList.add("col-3");
       colprodotto[i].id = "col_" + el[0][i].fields.name + "_" + el[0][i].fields.category;
       pProdotto[i].id = "p_" + el[0][i].fields.name + "_" + el[0][i].fields.category;
@@ -128,8 +129,8 @@ function insertProduct() {
     return elProdotto;
   }
 
-  
+
 }
-function inCarrello(){
+function inCarrello() {
   alert("aggiunto carrello!");
 }
