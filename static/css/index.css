@@ -19,16 +19,35 @@ body {min-width:100vh;}
   }
 }
 
+.fa-shopping-cart{
+    color:orange;
+  }
+span,p[id^=p_]{
+  font-size: 0.8rem;
+  line-height:1;
+  margin-bottom: 0;
+}
 
-[id^=img_product]{
+div[id^=col_Image_]{
+    min-width: 100px;
+  }
+
+img[id^=img_product]{
+  width: 90px;
+  height:auto;
 }
 
 div#divForm{
   margin:0 auto;
 }
 
+div[id^=div_]{
+  width:fit-content;
+  max-width:100%;
+}
+
 [id^=colProductName]{
-  margin-left:-20%;
+  width:100%;
   margin-top:0;
   padding:0;
 }

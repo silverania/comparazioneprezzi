@@ -1,45 +1,35 @@
-{% extends "base_main.html" %}
-{% load static %}
-{% block title %}
+{% extends 'base_main.html' %} {% load static %} {% block title %}
   La spesa più bassa
-{% endblock title %}
-{% block keywords %}
+{% endblock %} {% block keywords %}
   confronta, prezzi, spesa , supermercato, Caserta ,
-{% endblock keywords %}
-{% block description %}
+{% endblock %} {% block description %}
   Fai La Spesa Al Prezzo Migliore
-{% endblock description %}
-{% block anteprima %}
+{% endblock %} {% block anteprima %}
   <meta property="og:image" />
-{% endblock anteprima %}
-{% block content %}
+{% endblock %} {% block content %}
   <div class="container-fluid">
     <div class="row mt-3 justify-content-center">
-      <div class="col-12 text-center" id="main_title">
+      <div class="col-8 text-center" id="main_title">
         <div>Risparmia sulla spesa</div>
       </div>
     </div>
-    <div id="containersearch" class="container-fuid">
-      <div class="row mt-4">
-        <div class="col-12 col-md-12">
-          <form id="formSearch" class="form-inline" action="javascript:void(0);">
-            <div class="form-group" id="divForm">
-              <i class="fas fa-search h4 text-body"></i>
-              <input id="inputSearch" value class="mb-2 form-control-sm form-control-borderless" type="search" placeholder="metti nel carrello" />
-              <button id="buttonSearch" class="mb-2 btn btn-sm btn-success" type="submit">Search</button>
-            </div>
-          </form>
-        </div>
+  </div>
+  <div class="col-4 text-middle"></div>
+  <div class="container-fluid" id="containerprodotti">
+    <div class="row mt-5" id="rowprodotti">
+      <div class="col-7 text-center" id="colprodotti">
+        <span id="sprodotti" class="badge bg-light">Cerca Prodotti e Aggiungili al Carrello Spesa</span>
+        <form id="formSearch" class="form-inline" action="javascript:void(0);">
+          <div class="form-group" id="divForm">
+            <i class="fas fa-search h4 text-body"></i>
+            <input id="inputSearch" value class="mb-2 form-control-sm form-control-borderless" type="search" placeholder="metti nel carrello" />
+            <button id="buttonSearch" class="mb-2 btn btn-sm btn-success" type="submit">Search</button>
+          </div>
+        </form>
       </div>
-    </div>
-    <div class="container-fluid" id="containerprodotti">
-      <div class="row mt-5" id="rowprodotti">
-        <div class="col-7 offset-1" id="colprodotti">
-          PRODOTTI
-        </div>
-        <div class="col-4" id="div_carrello">
-          carrello
-        </div>
+      <div class="col-5 text-center" id="div_carrello">
+        <i class="fad fa-shopping-cart"></i>
+        <div class="row mt-5"></div>
       </div>
     </div>
   </div>

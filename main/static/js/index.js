@@ -7,7 +7,6 @@ function insertProduct() {
   var generiJson;
   var productsParse;
   var products;
-
   var containersearch;
   var colProdotti;
   var i;
@@ -51,6 +50,12 @@ function insertProduct() {
   }
 
   buttonSearch.addEventListener("click", function () {
+    for (i = colprodotto.length - 1; i >= 0; i--) {
+      colprodotto[i].remove();
+      colprodotto.pop();
+      rowCarrello.pop();
+      divprodotto.pop();
+    }
     searchValue = document.getElementById('inputSearch').value;
     extract = [];
     var carrello = document.getElementsByClassName("button_aggiungi");
@@ -58,12 +63,7 @@ function insertProduct() {
       carrello[0].parentNode.removeChild(carrello[0]);
     }
     //e.firstElementChild can be used.
-    var e = document.getElementById('colprodotti');
-    var child = e.lastElementChild;
-    while (child) {
-      e.removeChild(child);
-      child = e.lastElementChild;
-    }
+
     for (var c = 0; c < productsParse.product.length; c++) {
       let temp = JSON.parse(productsParse.product[c]);
       if (searchValue !== "")
@@ -78,7 +78,6 @@ function insertProduct() {
 
 
   function addElementToScreeen(el) {
-    var elProdotto = document.createElement('DIV');
     for (i = 0; i < el[0].length; i++) {
       rowCarrello.push(document.createElement("DIV"));
       colprodotto.push(document.createElement("DIV"));
@@ -90,10 +89,9 @@ function insertProduct() {
       pPrezzo.push(document.createElement("P"));
       colImage.push(document.createElement("DIV"));
       colProductName.push(document.createElement("DIV"));
-      elProdotto.setAttribute("class", "row");
       rowCarrello[i].classList.add("row");
       rowCarrello[i].classList.add("justify-content-center");
-      $(rowCarrello[i]).append('<button class="btn btn-warning button_aggiungi" onclick="inCarrello()" class="btn btn-sm btn-primary"><span id="span_aggiungi_' + el[0][i].fields.name + "_" + el[0][i].pk + '">Nel Carrello</span></button>');
+      $(rowCarrello[i]).append('<button class="btn btn-warning" id="button_aggiungi" onclick="inCarrello()" class="btn btn-sm btn-primary"><span id="span_aggiungi_' + el[0][i].fields.name + "_" + el[0][i].pk + '">Nel Carrello</span></button>');
       colprodotto[i].classList.add("col-3");
       colprodotto[i].id = "col_" + el[0][i].fields.name + "_" + el[0][i].fields.category;
       pProdotto[i].id = "p_" + el[0][i].fields.name + "_" + el[0][i].fields.category;
@@ -123,8 +121,7 @@ function insertProduct() {
       colImage[i].appendChild(imgprodotto[i]);
       colprodotto[i].appendChild(divprodotto[i]);
       colprodotto[i].appendChild(rowCarrello[i]);
-      elProdotto.appendChild(colprodotto[i]);
-      colProdotti.appendChild(elProdotto);
+      colProdotti.appendChild(colprodotto[i]);
     }
     return elProdotto;
   }
