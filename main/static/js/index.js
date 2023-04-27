@@ -92,12 +92,13 @@ function insertProduct() {
       rowCarrello[i].classList.add("row");
       rowCarrello[i].classList.add("justify-content-center");
       $(rowCarrello[i]).append('<button class="btn btn-warning" id="button_aggiungi" onclick="inCarrello()" class="btn btn-sm btn-primary"><span id="span_aggiungi_' + el[0][i].fields.name + "_" + el[0][i].pk + '">Nel Carrello</span></button>');
-      colprodotto[i].classList.add("col-3");
+      colprodotto[i].classList.add("col-2");
       colprodotto[i].id = "col_" + el[0][i].fields.name + "_" + el[0][i].fields.category;
       pProdotto[i].id = "p_" + el[0][i].fields.name + "_" + el[0][i].fields.category;
       divprodotto[i].classList.add("row");
-      divprodotto[i].width = "auto";
       divprodotto[i].id = "div_" + el[0][i].fields.name + "_" + el[0][i].fields.category;
+      divprodotto[i].style.display = "inline-block";
+      divprodotto[i].style.width = "100%";
       pPrezzo[i].id = "p_prezzo_" + el[0][i].fields.prezzo + "_" + el[0][i].fields.category;
       spanPrezzo[i].id = "s_prezzo_" + el[0][i].fields.prezzo;
       colImage[i].id = "col_Image_" + el[0][i].fields.name + "_" + el[0][i].fields.category;
@@ -109,6 +110,7 @@ function insertProduct() {
       imgprodotto[i].setAttribute("alt", "Nessuna immagine !");
       imgprodotto[i].id = "img_product_" + el[0][i].fields.name + "_" + el[0][i].fields.category;
       imgprodotto[i].src = MEDIAFOLDER + (el[0][i].fields.image).toString();
+      imgprodotto[i].classList.add("img-fluid");
       pProdotto[i].appendChild(spanProdotto[i]);
       pPrezzo[i].appendChild(spanPrezzo[i]);
       spanProdotto[i].innerText = el[0][i].fields.name;
@@ -121,9 +123,11 @@ function insertProduct() {
       colImage[i].appendChild(imgprodotto[i]);
       colprodotto[i].appendChild(divprodotto[i]);
       colprodotto[i].appendChild(rowCarrello[i]);
-      colProdotti.appendChild(colprodotto[i]);
+      //colProdotti.appendChild(colprodotto[i]);
+      var rowprodotti = document.getElementById('rowprodotti');
+      rowprodotti.appendChild(colprodotto[i]);
     }
-    return elProdotto;
+    return colProdotti;
   }
 
 

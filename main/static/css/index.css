@@ -42,11 +42,13 @@ p[id^="p_"] {
 }
 
 div[id^="col_Image_"] {
-  min-width: 100px;
+  display:block;
+  width: 100%;
+  height:auto;
 }
 
 img[id^="img_product"] {
-  width: 90px;
+  width: auto;
   height: auto;
 }
 
@@ -54,10 +56,11 @@ div#divForm {
   margin: 0 auto;
 }
 
-[id^="colProductName"] {
-  width: 100%;
-  margin-top: 0;
+[id^="colProductName"],#col_Image {
+  display: inline-block;
+  margin: 0 auto;
   padding: 0;
+  width: auto;
 }
 @media screen and (max-width: 992px) {
   /*#formsearch{
@@ -77,6 +80,8 @@ p {
   font-size: 0.6rem;
 }
 #button_aggiungi {
+  display:block;
+  width:fit-content;
   margin: 0 auto;
 }
 
