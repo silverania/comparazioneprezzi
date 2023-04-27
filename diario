@@ -1,3 +1,4 @@
 -devo aggiungere evento sul button id=button_aggiungi per aggiungere il prodotto al carrello
 -sto creando la row sotto l' icon carrello in cui metterò una table per inserire i dati prodotto aggiunto al carrelolo
 -l' immagine e testo prodotto sono da rifare
+- ho preso l' elemento prodotto (div#col_latte_parmalat ) da aggiungere al carrello  

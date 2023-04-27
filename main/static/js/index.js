@@ -1,12 +1,12 @@
 const HOST = "https://127.0.0.1:8000";
 const MEDIAFOLDER = "media/";
 
+
 function insertProduct() {
   var searchValue;
   var buttonSearch;
   var generiJson;
   var productsParse;
-  var products;
   var containersearch;
   var colProdotti;
   var i;
@@ -48,6 +48,7 @@ function insertProduct() {
       this.inOfferta = inOfferta;
     }
   }
+
 
   buttonSearch.addEventListener("click", function () {
     for (i = colprodotto.length - 1; i >= 0; i--) {
@@ -91,7 +92,9 @@ function insertProduct() {
       colProductName.push(document.createElement("DIV"));
       rowCarrello[i].classList.add("row");
       rowCarrello[i].classList.add("justify-content-center");
-      $(rowCarrello[i]).append('<button class="btn btn-warning" id="button_aggiungi" onclick="inCarrello()" class="btn btn-sm btn-primary"><span id="span_aggiungi_' + el[0][i].fields.name + "_" + el[0][i].pk + '">Nel Carrello</span></button>');
+      $(rowCarrello[i]).append('<button class="btn btn-warning checkout"  class="btn btn-sm btn-primary"><span id="span_aggiungi_' + el[0][i].fields.name + "_" + el[0][i].pk + '">Nel Carrello</span></button>');
+      rowCarrello[i].id = "but_" + el[0][i].fields.name;
+      elementsSelected = document.getElementsByClassName('btn-warning');
       colprodotto[i].classList.add("col-2");
       colprodotto[i].id = "col_" + el[0][i].fields.name + "_" + el[0][i].fields.category;
       pProdotto[i].id = "p_" + el[0][i].fields.name + "_" + el[0][i].fields.category;
@@ -127,11 +130,14 @@ function insertProduct() {
       var rowprodotti = document.getElementById('rowprodotti');
       rowprodotti.appendChild(colprodotto[i]);
     }
+    var elements = document.getElementsByClassName("checkout");
+    for (var i = 0, len = elements.length; i < len; i++) {
+      elements[i].addEventListener("click", function (e) {
+        /* Do your stuffs here */
+        const a = e.target.closest('div');
+        var offsetParent = a.offsetParent;
+      });
+    }
     return colProdotti;
   }
-
-
-}
-function inCarrello() {
-  alert("aggiunto carrello!");
 }
