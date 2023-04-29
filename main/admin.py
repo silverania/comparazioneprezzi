@@ -1,13 +1,13 @@
 from django.contrib import admin
-from .models import GenereAlimentare, Prodotto
+from .models import Genere, Prodotto
 from user.models import Profile
 
-@admin.register(GenereAlimentare)
+
+@admin.register(Genere)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug',]
+    list_display = ['name', 'slug', ]
     prepopulated_fields = {'slug': ('name',)}
-    
-    
+
 
 @admin.register(Prodotto)
 class ProductAdmin(admin.ModelAdmin):
@@ -20,7 +20,8 @@ class ProductAdmin(admin.ModelAdmin):
         #   filtered_query |= query.filter(site=s)
         #  print(s.title)
         return query
-    list_display = ['name','category', 'prezzo','slug','disponibile', 'creato', 'aggiornato']
+    list_display = ['name', 'prezzo',
+                    'slug', 'disponibile', 'creato', 'aggiornato']
     list_filter = ['disponibile', 'creato', 'aggiornato']
     list_editable = ['prezzo', 'disponibile']
     prepopulated_fields = {'slug': ('name',)}

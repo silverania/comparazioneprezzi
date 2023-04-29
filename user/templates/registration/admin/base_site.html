@@ -1,0 +1,51 @@
+{% load static %}
+
+ {% block branding %}
+ {% include '_heads.html'%}
+ <link rel="stylesheet" href="{% static "css/admin_dashboard.css" %}">
+ <link rel="stylesheet" href="{% static "css/all.min.css" %}">
+ <link rel="stylesheet" href="{% static "admin/css/base.css" %}">
+<link rel="stylesheet" href="/static/css/blog.css">
+     <div class="row">
+         <div class="col-12 text-end">
+             <a  href="/booldog" target="_blank "id="a_download"><div class=
+                 "booldog admin"><span class="badgebooldog admin"><i class=" fas fa-comment-dots admin"></i></span><span id="site-name" class="spanbooldog admin">BoolDog</span></div>
+                 <span class="booldoginfo admin">Per i commenti. Usalo sul tuo Sito Web !</span></a>
+             </div>
+             </div>
+ {% endblock branding %}
+
+ <div class="main" id="main">
+      
+      <div class="content">
+        
+          
+        
+        <!-- Content -->
+        <div id="content" class="colM">
+          
+          <h1>Passwor ripigglia</h1>
+          
+          
+
+<p>Forgot your password? Enter your email address below, and we’ll email instructions for setting a new one.</p>
+
+<form method="post"><input type="hidden" name="csrfmiddlewaretoken" value="V5TLJ9sLhKRmTGxNixOtzooMVBJwK16M3P56T0qYehdFtiAVwy6wP7rhDXeBxblY">
+<fieldset class="module aligned">
+    <div class="form-row field-email">
+        
+        <label for="id_email">Email address:</label>
+        <input type="email" name="email" autocomplete="email" maxlength="254" required="" id="id_email">
+    </div>
+    <input type="submit" value="Reset my password">
+</fieldset>
+</form>
+
+
+          
+          <br class="clear">
+        </div>
+        <!-- END Content -->
+        <div id="footer"></div>
+      </div>
+    </div>

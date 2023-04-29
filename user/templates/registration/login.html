@@ -4,16 +4,10 @@
 {% block title %}Log-in {% endblock title %}
 
 {% block content %}
-<div class="container">
-
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v14.0&appId=810115799892623&autoLogAppEvents=1" nonce="ZQl7gT5l">
-</script>
-
-        <h3 align="center">Entra</h3>
-
-        <div class="row justify-content-center">
-          <div class="col-social  text-end col-md-1 col-1 col-sm-1 ">
+<div id="containerlogin" class="container">
+        <h3 align="center">Entra {{ request.user.is_authenticated }}</h3>
+             <div class="row justify-content-center">
+          <div class=" facebook col-md-1 col-1 col-sm-1 ">
                   <a href="{% url 'social:begin' 'facebook' %}" class="facebook" data-toggle="tooltip" data-placement="top" title="Facebook">
               <i class="fab fa-facebook fa-2x"></i>
             </a>
@@ -42,16 +36,16 @@
 
 		<div class="row justify-content-center">
 			<div class="col-md-5 col-lg-4 col-sm-6 col-8">
-			    <form id="formlogin" autocomplete="off" method="POST"> <!--action="{% url 'login' %}"-->
-              {% csrf_token %}
-					<div class="input-group">
+			    <form id="formlogin" autocomplete="on" method="post" action="" /> 
+					{% csrf_token %}
+          <div class="input-group">
 						<span class="input-group-addon"><span class="fas fa-user"></span></span>
             <label for="{{ form.username.id_for_label }}"></label>
-            <input type="input" class="form-control" name="username" id="inputUsername" placeholder="Username" required >
-            <input id="next" type="hidden" name="next" value="">
+            <input type="input" class="form-control" name="username" id="inputUsername" placeholder="Username" required />
+            <input id="next" type="hidden" name="mainurl" value="{{ valuenext }}" />
         {{ form.username.errors }}
 					</div>
-                    <hr />
+                    <hr/>
 
 					<div class="input-group">
 						<span class="input-group-addon"><span class="fa fa-key"></span></span>
@@ -68,33 +62,6 @@
 
                     <hr />
 					<button id="id_login"  class="btn btn-outline-primary" type="submit">Entra</button>
-				</form>
-
-<script>
-            $(document).ready(function(){
-              const params = new URLSearchParams(window.location.search);
-              var valuenext=params.get('next');
-              var login="{{ request.user.is_authenticated }}"
-              $('[data-toggle="tooltip"]').tooltip()
-              var r=document.getElementById("a_reg");
-              var pf=document.getElementById("a_passwordforget");
-              var pc=document.getElementById("a_changepassword");
-              r.href="/user/register/blog?next="+params.get('next');
-              pc.href="{% url 'change_password' %}?next="+params.get('next');
-              pf.href="{% url 'password_reset' %}?next="+params.get('next');
-              var fs= document.getElementById("formlogin");
-              if (valuenext){
-                localStorage.setItem("next",valuenext);
-                next=localStorage.getItem("next")
-                $('#next').setAttribute("value",next)
-                console.log("valuenext not empty : "+next)
-                }
-                else{
-                  next=localStorage.getItem("next")
-                  window.location.href=window.location.href+"?next="+next
-              }
-            });
-          </script>
 			</div>
     	</div>
 		<div class="row kpx_row-sm-offset-3">
@@ -106,7 +73,7 @@
 			</div>
 			<div class="col-xs-12 col-sm-3">
 				<p class="kpx_forgotPwd">
-					<small><a id="a_passwordforget">Password Dimenticata ?</a></small>
+					<small><a href="#" id="a_passwordforget">Password Dimenticata ?</a></small>
 				</p>
         <p class="kpx_forgotPwd">
 					<small><a id="a_changepassword">Vuoi Cambiare Password ?</a></small>
@@ -117,9 +84,5 @@
 
 
 
-        <script>
-$(document).ready(function(){
-
-})
-</script>
+    
 {% endblock content %}

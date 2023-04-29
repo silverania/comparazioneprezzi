@@ -133,11 +133,21 @@ function insertProduct() {
     var elements = document.getElementsByClassName("checkout");
     for (var i = 0, len = elements.length; i < len; i++) {
       elements[i].addEventListener("click", function (e) {
-        /* Do your stuffs here */
         const a = e.target.closest('div');
         var offsetParent = a.offsetParent;
+        addElementTocheckout(offsetParent);
       });
     }
-    return colProdotti;
+    return 0;
+  }
+  function addElementTocheckout(el) {
+    var element = el;
+    var rowElements = document.querySelector("#rowElements");
+    element.classList.remove("col-2");
+    element.classList.add("col-3");
+    const a = element.lastChild.remove('button');
+    element.remove(a);
+
+    rowElements.append(element);
   }
 }

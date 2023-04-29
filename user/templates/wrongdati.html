@@ -1,0 +1,19 @@
+{% extends 'base_password.html' %}
+{% load i18n %}
+{% load static %}
+<html>
+  <head>
+    <meta name="author" content="silverania"\>
+    <link rel="stylesheet" href="{% static "node_modules/bootstrap/dist/css/bootstrap.css"%}"\>
+    <link rel="stylesheet" href="{% static "css/all.min.css" %}"\>
+    <link rel="stylesheet" href="{% static "css/blog.css" %}"\>
+    <script  src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/all.min.js' %}"></script>
+    <script  src="{% static 'node_modules/bootstrap/dist/js/bootstrap.js' %}"></script>
+    </head>
+  <body>
+  <h1 align=center>"{% trans "wrong data !" %}"<a class="badge badge-info"  onclick='window.top.postMessage({reload: true,},"*");'>
+  <span style="font-size:3rem;color:green;"> < Torna </span></a></h1>
+  
+  </body>
+</html>

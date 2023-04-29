@@ -1,4 +1,6 @@
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
+from django.template import RequestContext
 from .forms import UserEditForm, ProfileEditForm
 from .models import Profile
 from django.contrib.auth.decorators import login_required
@@ -15,8 +17,9 @@ from django.contrib.auth.models import Group
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
-
-
+from django.contrib.sessions.models import Session
+from django.utils import timezone
+from django.utils.decorators import method_decorator
 scrollTo = ''
 Group = Group.objects.all()
 
@@ -31,9 +34,12 @@ def getUser(user):
     return list_current_user
 
 
-class checkUser(View):
-    def post(self, request):
-        login = getUser(request.user) if request.user.is_authenticated else "false"
+@csrf_exempt
+def checkUser(request):
+    if request.method == 'POST':
+        print("user is auth ?"+str(request.user.is_authenticated)+str(request.user))
+        login = getUser(
+            request.user) if request.user.is_authenticated else "false"
         myuser = object()
         authorized = False
         list_json_user_data = json.loads(request.body)
@@ -52,10 +58,10 @@ class checkUser(View):
                     list_current_user = getUser(myuser)
                     firstName = str(myuser)
                     currentUser = Profile.objects.get(first_name=firstName)
-                    breakpoint()
                     if 'blog' in request.get_full_path():
                         if not str(currentUser.website) in currentUrl:
-                            print("nessun autorizzazione concessa !")
+                            print("nessun autorizzazione concessa !" +
+                                  str(currentUrl)+"__"+str(currentUser.website))
                             raise Exception(
                                 "sito Web non autoriazzato o assente in fase di registrazione")
                         else:
@@ -86,24 +92,40 @@ class checkUser(View):
             data, safe=False
         )
         return response
-
+    """
     def get(self, request):
-        print(request.user.is_authenticated)
-        c = {}
-        c.update(csrf(request))
-        for key, value in c.items():
-            key = str(key)
-            value = str(value)
-        print(str(key)+str(value))
-        return JsonResponse({key: value})
+        print("view checuser GET request.user & session is =" +
+              str(request.user.is_authenticated)+"____"+str(request.session))
+        print("is AUT IN GET ? "+str(self.request.user.is_authenticated))
+        sessions = Session.objects.filter(expire_date__gte=timezone.now())
+        user_id_list = []
+        # build list of user ids from query
+        return HttpResponse("ok get for none ! ")
+
+        def getLoggedUsers():
+            print("in dispatch getLoggedUSer request.user is ="+str(request.user))
+            for session in sessions:
+                data = session.get_decoded()
+                # if the user is authenticated
+                if data.get('_auth_user_id'):
+                    user_id_list.append(data.get('_auth_user_id'))
+                logged_in_users = Profile.objects.filter(id__in=user_id_list)
+            list_of_logged_in_users = [
+                {profile.id: profile.first_name} for profile in logged_in_users]
+            return list_of_logged_in_users
+        print(str(key)+str(value)+str(getLoggedUsers()))
+        return JsonResponse({key: value, 'loggedUsers': getLoggedUsers()})
 
     def dispatch(self, request, *args, **kwargs):
         if request.method == 'GET':
+            print("in dispatch GET request.user is ="+str(request.user))
             return self.get(request)
         elif request.method == 'POST':
             #cv = request.body
             #print("from dispatch method :"+str(cv))
-            return self.post(request)
+            print("in dispatch POST request.user is ="+str(request.user))
+            return self.post(self.request)
+    """
 
 
 def get_client_ip(request):
@@ -121,8 +143,10 @@ def getUrlRequest(request):
 
 
 def user_login(request):
-    valuenext = ""
+    print("auth ="+str(request.user))
+    print("token="+str(request.META.get('HTTP_AUTHORIZATION')))
     if request.method == 'POST':
+        valuenext = request.POST.get('mainurl')
         form = LoginForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
@@ -130,16 +154,36 @@ def user_login(request):
             user = authenticate(request, username=username, password=password)
             if user:
                 login(request, user)
-                messages.success(request, f'Hi {username.title()}, welcome back!')
-                return redirect('https://127.0.0.1:8000/booldog')
+                # return redirect(valuenext)
                 # form is not valid or user is not authenticated
-                messages.error(request, f'Invalid username or password')
-                return render(request, valuenext, {"url": valuenext})
+                thissession = request.session.session_key
+                response = render(request, "booldog.html")
+                response.set_cookie('thissess', thissession)
+                return response
+            else:
+                return render(request, 'wrongdati.html', {'valuenext': valuenext})
+
     elif request.method == 'GET':
         form = LoginForm()
-        if 'next' in request.GET:
-            valuenext = request.GET.get('next')
-            return render(request, 'registration/login.html', {'form': form})
+        if 'mainurl' in request.GET:
+            valuenext = request.GET.get('mainurl')
+            return render(request, 'registration/login.html',
+                          {'form': form, 'valuenext': valuenext})
+
+    """ per cambiare password """
+    """
+    if 'blog' in request.get_full_path():
+             scrollTo = "#footer"
+            if 'next' in request.GET:
+                valuenext = request.GET.get('next')+scrollTo
+                subject = 'welcome to GFG world'
+                message = 'Hi mario, thank you for registering in geeksforgeeks.'
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = ["info.strabbit@gmail.com", ]
+                # send_mail(subject, message, email_from, recipient_list)
+            myuser = None
+            print("view: user_login , GET method......valuenext="+valuenext)
+            """
 
 
 @login_required
@@ -157,13 +201,12 @@ class Logout(View):
         global userLoggedIN
         logout(request)
         userLoggedIN = None
-        if 'next' in request.GET:
-            print("next in request !")
-            next = request.GET.get('next')
+        if 'mainurl' in request.GET:
+            mainurl = request.GET.get('mainurl')
             template = "registration/logged_out.html"
-            return redirect(next)
-            #return render(request, "seiuscito.html", {'valuenext': next})
-        return render(request, "seiuscito.html", {'valuenext': next})
+            return render(request, "booldog.html")
+            # return render(request, "seiuscito.html", {'valuenext': next})
+        return render(request, "seiuscito.html", {'valuenext': mainurl})
 
 
 def user_register(request):
@@ -174,16 +217,16 @@ def user_register(request):
             user = form.save()
             user.refresh_from_db()
             username = form.cleaned_data.get('username')
-            breakpoint()
             raw_password = form.cleaned_data.get('password1')
             user.profile.photo = form.cleaned_data.get('photo')
             user.profile.first_name = username
+            user.profile.email = form.cleaned_data.get('email')
             user.profile.website = form.cleaned_data.get('website')
             if 'blog' in request.path:
-                valuenext = request.GET.get('next')
+                valuenext = request.GET.get('mainurl')
                 # agiungere i permessi per leggere i propri post dall adminpage
                 user.save()
-                return redirect('/user/login/blog?next='+valuenext)
+                return redirect('/user/login/blog?mainurl='+valuenext)
             elif 'blogadmin' in request.path:
                 group = Group.get(name='BlogAdmin')
                 user.groups.add(group)
@@ -195,9 +238,9 @@ def user_register(request):
                 return HttpResponse("<h1>sei autorizzato ad usare webTalk ! </h1><h2>inserisci user e password nei tag Html del tuo sito . </h2>")
             else:
                 if 'next' in request.GET:
-                    valuenext = request.GET.get('next')
+                    valuenext = request.GET.get('mainurl')
                     user.save()
-                    return redirect('/user/login?next='+valuenext)
+                    return redirect('/user/login?mainurl='+valuenext)
                 else:
                     user.save()
                     return redirect('/user/login')
@@ -206,23 +249,24 @@ def user_register(request):
         # in base alla presenza della variabile next capisco
         # se la richiesta di registrazione è per installare il Blog
         # oppure per usarlo
-        if 'next' in request.GET:
-            valuenext = request.GET.get('next')
+        if 'mainurl' in request.GET:
+            valuenext = request.GET.get('mainurl')
         form = SignUpForm()
-    return render(request, 'user/register.html', {'form': form, 'next': valuenext})
+    return render(request, 'user/register.html', {'form': form, 'mainurl': valuenext})
 
 
 def change_password(request):
     if request.method == 'POST':
+        valuenext = ""
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
-            if 'next' in request.GET:
-                valuenext = request.GET.get('next')
+            if 'mainurl' in request.GET:
+                valuenext = request.GET.get('mainurl')
                 return render(request, "registration/pass_changed_done.html", {'valuenext': valuenext})
         else:
-            return HttpResponse("errore nei dati inseriti !")
+            return render(request, "wrongdati.html", {'valuenext': valuenext})
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'change_password.html', {'form': form})
