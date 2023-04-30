@@ -96,22 +96,22 @@ function insertProduct() {
       rowCarrello[i].id = "but_" + el[0][i].fields.name;
       elementsSelected = document.getElementsByClassName('btn-warning');
       colprodotto[i].classList.add("col-2");
-      colprodotto[i].id = "col_" + el[0][i].fields.name + "_" + el[0][i].fields.category;
-      pProdotto[i].id = "p_" + el[0][i].fields.name + "_" + el[0][i].fields.category;
+      colprodotto[i].id = "col_" + el[0][i].fields.name + "_" + el[0][i].fields.genere;
+      pProdotto[i].id = "p_" + el[0][i].fields.name + "_" + el[0][i].fields.genere;
       divprodotto[i].classList.add("row");
-      divprodotto[i].id = "div_" + el[0][i].fields.name + "_" + el[0][i].fields.category;
+      divprodotto[i].id = "div_" + el[0][i].fields.name + "_" + el[0][i].fields.genere;
       divprodotto[i].style.display = "inline-block";
       divprodotto[i].style.width = "100%";
-      pPrezzo[i].id = "p_prezzo_" + el[0][i].fields.prezzo + "_" + el[0][i].fields.category;
+      pPrezzo[i].id = "p_prezzo_" + el[0][i].fields.prezzo + "_" + el[0][i].fields.genere;
       spanPrezzo[i].id = "s_prezzo_" + el[0][i].fields.prezzo;
-      colImage[i].id = "col_Image_" + el[0][i].fields.name + "_" + el[0][i].fields.category;
-      colProductName[i].id = "colProductName_" + el[0][i].fields.name + "_" + el[0][i].fields.category;
+      colImage[i].id = "col_Image_" + el[0][i].fields.name + "_" + el[0][i].fields.genere;
+      colProductName[i].id = "colProductName_" + el[0][i].fields.name + "_" + el[0][i].fields.genere;
       colImage[i].classList.add("col-7");
       colImage[i].classList.add("col-md-7");
       colProductName[i].classList.add("col-5");
       colProductName[i].classList.add("col-md-5");
       imgprodotto[i].setAttribute("alt", "Nessuna immagine !");
-      imgprodotto[i].id = "img_product_" + el[0][i].fields.name + "_" + el[0][i].fields.category;
+      imgprodotto[i].id = "img_product_" + el[0][i].fields.name + "_" + el[0][i].fields.genere;
       imgprodotto[i].src = MEDIAFOLDER + (el[0][i].fields.image).toString();
       imgprodotto[i].classList.add("img-fluid");
       pProdotto[i].appendChild(spanProdotto[i]);
@@ -144,7 +144,7 @@ function insertProduct() {
     var element = el;
     var rowElements = document.querySelector("#rowElements");
     element.classList.remove("col-2");
-    element.classList.add("col-3");
+    element.classList.add("col-2");
     const a = element.lastChild.remove('button');
     element.remove(a);
 

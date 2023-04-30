@@ -36,7 +36,6 @@ class homePage(View):
         temp1 = []
         temp2 = []
         rtemplist = []
-        breakpoint()
         GENERIALIMENTARI = list(Genere.objects.all())
         # genereAlJson = serializer(GENERIALIMENTARI)
         if GENERIALIMENTARI:
@@ -44,6 +43,6 @@ class homePage(View):
                 temp1.append(serializer(
                     list(Genere.objects.filter(name=categoria.name))))
                 temp1.append(serializer(
-                    list(Prodotto.objects.filter(genere=categoria))))
+                    list(categoria.prodotti.all())))
             data = json.dumps({"product": temp1})
         return render(request, template, {'data': data})
