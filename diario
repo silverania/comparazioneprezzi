@@ -1,3 +1,4 @@
 modifica il testo del button  nei prodotti aggiunti al carrello in " elimina dal carrello"
 crea lo storage javascript per i prodotti .
 riga 209 animazione checkout
+nell' animnazione checkout(animchist())  devo animare la proprietà color. animare width non è possibile !

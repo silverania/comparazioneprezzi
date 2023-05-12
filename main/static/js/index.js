@@ -237,6 +237,39 @@ function insertProduct() {
   }
 }
 
-function animchist(el) {
-  el.classList.add("animateme");
+function animchist(elem) {
+  let i = 0;
+  id = setInterval(frame, 100);
+  function frame() {
+    i++;
+    if (i < 3) {
+      if (elem.style.backgroundColor === "green") {
+        elem.style.backgroundColor = "red";
+      }
+      else {
+        elem.style.backgroundColor = "green";
+      }
+    }
+    else {
+      clearInterval(id);
+      elem.style.backgroundColor = "white";
+    }
+  }
+  /*
+  let id = null;
+  let pos = parseInt(elem.offsetWidth);
+  const initialWidth = parseInt(elem.offsetWidth);
+  clearInterval(id);
+  id = setInterval(frame, 5);
+  function frame() {
+    if (elem.offsetWidth == (pos + 200)) {
+      elem.lastElementChild.width = initialWidth + "px";
+      clearInterval(id);
+    } else {
+      pos++;
+      elem.lastElementChild.lastElementChild.style.width = (parseInt(initialWidth + pos, 10) + "px");
+      elem.style.width = pos + 'px';
+      elem.style.height = "auto";
+    }
+  }*/
 }
