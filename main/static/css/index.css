@@ -2,14 +2,37 @@ body {
   min-height: 100vh;
 }
 body {
-  min-width: 100vh;
+  /* min-width: 100vh; */
+  /* width: 100%; */
+  /* height: auto; */
 }
 
-#containerprodotti{
-  margin:0;
-   max-width:80%; 
-}
 
+.section1{
+	background-color:#11181e;
+	width:60%;
+	float:left;
+	height:100vh;
+	border-right: 1vw solid #F5E5D6;
+	box-sizing: border-box;
+	margin:0;
+	min-width: 60%;
+	max-width: 60%;
+	padding:0;
+}
+.section2{
+	background-color:#f1c40f;
+	width:40%;
+	/* float:left; */
+	height:100vh;
+	min-width: 40%;
+	margin:0;
+	/* max-width: 40%; */
+	padding:0;
+	resize: both;
+	box-sizing: border-box;
+	display: inline-block;
+}
 @media screen and (min-width: 1024px) {
   span#sprodotti {
     font-size: 1.7rem;
@@ -18,7 +41,7 @@ body {
 
 @media screen and (max-width: 1024px) {
   span#sprodotti {
-    font-size: 1rem;
+    font-size: 0.6rem;
   }
 }
 
@@ -57,7 +80,9 @@ div#div_carrello {
   font-size: xxx-large;
   width :auto;
 }
-
+[id^=col_]{
+  padding:5px!important;
+}
 span,p[id^="p_"] {
   font-size: 0.8rem;
   line-height: 1;
@@ -65,13 +90,13 @@ span,p[id^="p_"] {
 }
 
 div[id^="col_Image_"] {
-  display:block;
-  width: 100%;
+  /* display: inline-block; */
+  max-width: 50%;
   height:auto;
 }
 
 img[id^="img_product"] {
-  width: 100%;
+  width: 20%;
   height: auto;
 }
 
@@ -105,7 +130,7 @@ p {
 #button_aggiungi {
   display:block;
   width:fit-content;
-  margin: 0 auto;
+  margin: 13px auto;
 }
 
 @media screen and (max-width: 574px) {
@@ -118,6 +143,10 @@ p {
     line-height: 1;
     margin-bottom: 0;
   }
+  #spesatext{font-size:medium;font-weight:bold;width: 100%;}
+.form-control-sm {
+font-size:0.7rem!important;
+}
 }
 /*.form-control-borderless {
   border: none;
@@ -137,5 +166,5 @@ p {
 }
 .animateme {
   animation-name: carrello;
-  animation-duration: 3s;
+  animation-duration: 10s;
 }

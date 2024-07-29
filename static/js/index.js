@@ -1,6 +1,14 @@
 const HOST = "https://127.0.0.1:8000";
 const MEDIAFOLDER = "media/";
 
+const reactElement = React.createElement(
+  'h1',
+null,
+'Hello world!!!'
+);
+const domNode = document.getElementById('rootreact');
+const root = ReactDOM.createRoot(domNode);
+root.render(reactElement);
 function insertProduct() {
   var searchValue;
   var buttonSearch;

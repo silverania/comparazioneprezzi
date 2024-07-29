@@ -1,85 +1,121 @@
-body { min-height: 100vh;}
-body {min-width:100vh;}
+body {
+  min-height: 100vh;
+}
+body {
+  min-width: 100vh;
+}
 
-@include media-breakpoint-up(sm) {
-  html {
+#containerprodotti{
+  margin:0;
+   max-width:80%; 
+}
+
+@media screen and (min-width: 1024px) {
+  span#sprodotti {
+    font-size: 1.7rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  span#sprodotti {
     font-size: 1rem;
   }
 }
 
-@include media-breakpoint-up(md) {
-  html {
-    font-size: 1.4rem;
-  }
+
+span#sprodotti {
+  margin-bottom:3%;
 }
 
-@include media-breakpoint-up(lg) {
-  html {
-    font-size: 1.6rem;
-  }
+#colCarrello{
+  width:31vw;
 }
 
-.fa-shopping-cart{
-    color:orange;
-  }
-span,p[id^=p_]{
+#buttonSearch{
+  position: relative;
+  left:10px;
+}
+
+div#div_carrello {
+  position:fixed;
+  display: block;
+  width: inherit;
+  height: 100vh;
+  border-left: 3px solid blue;
+  background-color: white;
+  margin: 0 auto;
+}
+
+#colShoppingCart,[id^=checkout]{
+  height: auto;
+  width:100%;
+}
+
+.fa-shopping-cart {
+  display:inline-block;
+  color: orange;
+  font-size: xxx-large;
+  width :auto;
+}
+
+span,p[id^="p_"] {
   font-size: 0.8rem;
-  line-height:1;
+  line-height: 1;
   margin-bottom: 0;
 }
 
-div[id^=col_Image_]{
-    min-width: 100px;
-  }
-
-img[id^=img_product]{
-  width: 90px;
+div[id^="col_Image_"] {
+  display: inline-block;
+  width: 100%;
   height:auto;
 }
 
-div#divForm{
-  margin:0 auto;
+img[id^="img_product"] {
+  width: 100%;
+  height: auto;
 }
 
-div[id^=div_]{
-  width:fit-content;
-  max-width:100%;
+div#divForm {
+  margin: 0 auto;
 }
 
-[id^=colProductName]{
-  width:100%;
-  margin-top:0;
-  padding:0;
+[id^="colProductName"],#col_Image {
+  display: inline-block;
+  margin: 0 auto;
+  padding: 0;
+  width: auto;
 }
 @media screen and (max-width: 992px) {
   /*#formsearch{
     width:100%;
   }*/
-
 }
 
-[id^=p_prezzo]{
-  color:green;
+[id^="p_prezzo"] {
+  color: green;
 }
 
-p{
+p {
   width: fit-content;
 }
 
-#span_aggiungi{
-  font-size:0.6rem;
+#span_aggiungi {
+  font-size: 0.6rem;
 }
-#button_aggiungi{
-  margin:0 auto;
+#button_aggiungi {
+  display:block;
+  width:fit-content;
+  margin: 0 auto;
 }
 
 @media screen and (max-width: 574px) {
   /*#formsearch{
     width:100%;
   }*/
-  span,p[id^=p_]{
-    font-size:0.8rem;
-    line-height:1;
+  span,
+  p[id^="p_"] {
+    font-size: 0.8rem;
+    line-height: 1;
     margin-bottom: 0;
   }
 }
@@ -92,3 +128,14 @@ p{
   outline: none;
   box-shadow:0rem,1rem;
 }*/
+
+@keyframes carrello {
+  0%   {background-color:aqua;}
+  25%  {background-color: yellow;}
+  50%  {background-color:orange;}
+  100% {background-color: whitesmoke;}
+}
+.animateme {
+  animation-name: carrello;
+  animation-duration: 3s;
+}

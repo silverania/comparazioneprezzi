@@ -10,7 +10,7 @@ a{
 
 a{
     color:blue;
-    font-size:0.6rem;
+    font-size: 1rem;
 }
 
 a#a_reg> span{
@@ -33,9 +33,9 @@ a:hover {
     margin-left:-5px!important;
 }
 
-
-
-
+.facebook,.social{
+    width:auto;
+}
 
 @media (max-width: 990px) {
 
@@ -43,10 +43,10 @@ a:hover {
         font-size: 1.3rem;
     }
     .col-social{
-        margin:10px;
+        /* margin:10px; */
     }
     h3 {
-        margin-left:30px!important;
+        /* margin-left:30px!important; */
     }
 }
 

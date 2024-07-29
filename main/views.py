@@ -45,4 +45,6 @@ class homePage(View):
                 temp1.append(serializer(
                     list(categoria.prodotti.all())))
             data = json.dumps({"product": temp1})
+        else:
+            return HttpResponse("Non ho trovato prodotti !!")
         return render(request, template, {'data': data})

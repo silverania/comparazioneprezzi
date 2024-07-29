@@ -154,11 +154,12 @@ def user_login(request):
             user = authenticate(request, username=username, password=password)
             if user:
                 login(request, user)
-                # return redirect(valuenext)
-                # form is not valid or user is not authenticated
+                # RITORNA redirect(valuenext)
+                # form NON VALIDO  o user not authenticated
                 thissession = request.session.session_key
                 response = render(request, "booldog.html")
                 response.set_cookie('thissess', thissession)
+                print("inviato cookie di sessione al client"+str(thisession))
                 return response
             else:
                 return render(request, 'wrongdati.html', {'valuenext': valuenext})

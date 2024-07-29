@@ -5,10 +5,7 @@ background-repeat: no-repeat;
 height: 100%;
 font-family: 'Numans', sans-serif;
 }
-.container{
-height: 100%;
-align-content: center;
-}
+.container{/* height: 120%; */align-content: center;}
 
 .card{
 height: 500px;

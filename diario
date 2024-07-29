@@ -2,3 +2,10 @@ modifica il testo del button  nei prodotti aggiunti al carrello in " elimina dal
 crea lo storage javascript per i prodotti .
 riga 209 animazione checkout
 nell' animnazione checkout(animchist())  devo animare la proprietà color. animare width non è possibile !
+
+- devo creare admin !
+- continua a creare animazione prodotto in index.js , la funzione animchist no nviene chiamata o ERRORE ignoto!
+- ho creato il progetto react nella cartella comparazioneprezzi
+- eliminato onclick per formare la lista spesa ...... sto usando gli attributi data_name ecc per impostare il nome articolo ecc.. 
+- La ricerca deve restituire i prodotti in ordine di prezzo e il primo prezzo deve essere il più basso ( e va evidenziato ! ) 
+- modifica l' id dell elemento clonato 

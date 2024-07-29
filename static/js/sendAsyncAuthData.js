@@ -1,4 +1,4 @@
-$(document).ready(function(){
+/*$(document).ready(function(){
 $('#id_login').click(function(){
   var input_username =document.getElementById('inputUsername')
   var username = input_username.text
@@ -19,3 +19,4 @@ $.ajax({
 });
 });
 })
+*/

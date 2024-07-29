@@ -7,47 +7,54 @@
 {% endblock %} {% block anteprima %}
   <meta property="og:image" />
 {% endblock %} {% block content %}
-  <div class="container-fluid">
+  <div class=" section1">
     <div class="row mt-3 justify-content-center">
-      <div class="col-8 text-center" id="main_title">
-        <div>Risparmia sulla spesa</div>
+      <div class="col-12 text-center" id="main_title">
       </div>
-      <div class="col-4 text-center" id="col4_carrello">
-        <div class="col-12 text-center" id="colCarrello">
-          <div id="div_carrello">
-            <div class="container-fluid">
-              <div class="row justify-content-center">
-                <div class="col" id="colShoppingCart">
-                  <i class="fad fa-shopping-cart"></i>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col" id="divElementsselected">
-                  <div class="row" id="rowElements"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="container-fluid" id="containerprodotti">
-    <div class="row mt-5">
-      <div class="col-9 text-center" id="colprodotti">
-        <span id="sprodotti" class="badge bg-light">Cerca Prodotti e Aggiungili al Carrello Spesa</span>
+      <div  id="col4_carrello">
+        <div class="row">
+      <div class="col-xs-6 col-md-4 col-lg-3 text-center" id="colprodotti">
+        <span id="sprodotti" class="badge bg-light"></span>
         <form id="formSearch" class="form-inline" action="javascript:void(0);">
-          <div class="form-group" id="divForm">
-            <i class="fas fa-search h4 text-body"></i>
-            <input id="inputSearch" value class="mb-2 form-control-sm form-control-borderless" type="search" placeholder="metti nel carrello" />
-            <button id="buttonSearch" class="mb-2 ms-5 btn btn-sm btn-success" type="submit">Cerca</button>
+          <div class="form-group-sm" id="divForm">
+            <!-- i class="fas fa-2xs fa-search h4 text-body"></i-->
+            <input id="inputSearch" value class="mb-2 form-control form-control-sm form-control-borderless" type="search" placeholder="cerca alimento" />
+            <button id="buttonSearch" class="mb-2 ms-5 btn-xs btn-success" type="submit">Cerca</button>
           </div>
         </form>
         <div class="row" id="rowprodotti"></div>
       </div>
     </div>
+
+        <div  id="colCarrello">
+          
+        
+        </div>
+      </div>
+    </div>
   </div>
+
+  <div class="section2 ">
+    
+    <div id="root"></div>
+          <div id="div_carrello">
+            <div class="container-fluid">
+              <div class="row justify-content-center">
+                <i class="fad fa-2x fa-shopping-cart"></i></span>
+                <div class="col" id="colShoppingCart"><span id="spesatext" class="badge bg-warning" >nel carrello
+                  
+                </div>
+              </div>
+              <div class="row">
+                <div class="col" id="divElementsselected">
+                  <div id="root2"></div>
+                  <div class="row" id="rowElements"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+  </div>
+  <script src="{% static 'js/index.js' %}"></script>
   <script>
     var generi = '{{ data|escapejs }}'
     insertProduct()
