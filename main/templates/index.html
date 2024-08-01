@@ -56,7 +56,8 @@
   </div>
   <script src="{% static 'js/index.js' %}"></script>
   <script>
-    var generi = '{{ data|escapejs }}'
+    var generi = '{{ data|escapejs }}';
+    generi.replace("\'b","");
     insertProduct()
   </script>
 {% endblock %}

@@ -69,11 +69,10 @@ function insertProduct() {
       e.removeChild(child);
       child = e.lastElementChild;
     }
-    for (var c = 0; c < productsParse.product.length; c++) {
-      let temp = JSON.parse(productsParse.product[c]);
+    for (var c = 0; c < productsParse.length; c++) {
       if (searchValue !== "")
-        if (temp[0].model === "main.prodotto" && temp[0].fields.name.toUpperCase().includes(searchValue.toUpperCase())) {
-          extract.push(JSON.parse(productsParse.product[c]));
+        if (productsParse[c].name.toUpperCase().includes(searchValue.toUpperCase())) {
+          extract.push(productsParse[c]);
         }
         else { continue; }
     }
@@ -84,7 +83,7 @@ function insertProduct() {
 
   function addElementToScreeen(el) {
     var elProdotto = document.createElement('DIV');
-    for (i = 0; i < el[0].length; i++) {
+    for (i = 0; i < el.length; i++) {
       rowCarrello.push(document.createElement("DIV"));
       colprodotto.push(document.createElement("DIV"));
       divprodotto.push(document.createElement("DIV"));
@@ -98,20 +97,20 @@ function insertProduct() {
       elProdotto.setAttribute("class", "row");
       rowCarrello[i].classList.add("row");
       rowCarrello[i].classList.add("justify-content-center");
-      $(rowCarrello[i]).append('<button class="btn-xs btn-warning" onClick="inCarrello(event)"id="button_aggiungi" data-name="'+el[0][i].fields.name+'" class="btn btn-sm btn-primary"><span id="span_aggiungi_' + el[0][i].fields.name + "_" + el[0][i].pk + '">Nel Carrello</span></button>');
-      colprodotto[i].id = "col_" + el[0][i].fields.name + "_" + el[0][i].fields.category;
+      $(rowCarrello[i]).append('<button class="btn-xs btn-warning" onClick="inCarrello(event)"id="button_aggiungi" data-name="'+el[i].name+'" class="btn btn-sm btn-primary"><span id="span_aggiungi_' + el[i].name + "_" + el[i].pk + '">Nel Carrello</span></button>');
+      colprodotto[i].id = "col_" + el[i].name + "_" + el[i].category;
       colprodotto[i].classList.add("col-xs-6");
       colprodotto[i].classList.add("datacol");
-      pProdotto[i].id = "p_" + el[0][i].fields.name + "_" + el[0][i].fields.category;
+      pProdotto[i].id = "p_" + el[i].name + "_" + el[i].category;
       divprodotto[i].classList.add("row");
       divprodotto[i].classList.add("mt-5");
       divprodotto[i].width = "auto";
-      divprodotto[i].id = "div_" + el[0][i].fields.name + "_" + el[0][i].fields.category;
-      pPrezzo[i].id = "p_prezzo_" + el[0][i].fields.prezzo + "_" + el[0][i].fields.genere;
-      spanPrezzo[i].id = "s_prezzo_" + el[0][i].fields.prezzo;
-      colImage[i].id = "col_Image_" + el[0][i].fields.name + "_" + el[0][i].fields.genere;
+      divprodotto[i].id = "div_" + el[i].name + "_" + el[i].category;
+      pPrezzo[i].id = "p_prezzo_" + el[i].prezzo + "_" + el[i].genere;
+      spanPrezzo[i].id = "s_prezzo_" + el[i].prezzo;
+      colImage[i].id = "col_Image_" + el[i].name + "_" + el[i].genere;
       colImage[i].classList.add("col-4");
-      colProductName[i].id = "colProductName_" + el[0][i].fields.name + "_" + el[0][i].fields.category;
+      colProductName[i].id = "colProductName_" + el[i].name + "_" + el[i].category;
       //colImage[i].classList.add("col-12");
       //colImage[i].classList.add("col-md-3");
       
@@ -119,13 +118,13 @@ function insertProduct() {
       imgprodotto[i].classList.add("img-fluid");
       imgprodotto[i].setAttribute("width", "24px");
       imgprodotto[i].setAttribute("align", "right");
-      imgprodotto[i].id = "img_product_" + el[0][i].fields.name + "_" + el[0][i].fields.genere;
-      imgprodotto[i].src = MEDIAFOLDER + (el[0][i].fields.image).toString();
+      imgprodotto[i].id = "img_product_" + el[i].name + "_" + el[i].genere;
+      imgprodotto[i].src = MEDIAFOLDER + (el[i].fileds.image).toString();
       pProdotto[i].appendChild(spanProdotto[i]);
       pPrezzo[i].appendChild(spanPrezzo[i]);
-      spanProdotto[i].innerText = el[0][i].fields.name;
+      spanProdotto[i].innerText = el[i].name;
       spanProdotto[i].style.marginTop = "0";
-      spanPrezzo[i].innerText = el[0][i].fields.prezzo + "euro";
+      spanPrezzo[i].innerText = el[i].prezzo + "euro";
       colProductName[i].appendChild(pProdotto[i]);
       colProductName[i].appendChild(pPrezzo[i]);
       colProductName[i].classList.add("col-8");
@@ -143,13 +142,13 @@ function insertProduct() {
 
 }
 function inCarrello(ev) {
-  var elClicked = document.getElementById(ev.target.id).closest(".datacol");
+  var elClicked = document.getElementById(ev.target.id).closest(".datacol").cloneNode(true);
   
-  root2.appendChild(elClicked.cloneNode(true));
+  root2.appendChild(elClicked);
   var changedSpanText = document.getElementById('root2');
   var parentChangedSpanText = root2.getElementsByTagName("span")[2];
-  parentChangedSpanText.innerText = "Rimuovi da lista";
+  parentChangedSpanText.innerText = "Togli dal carrello";
   parentChangedSpanText.classList.add("animateme");
   var el = root2.childNodes[0].childNodes[1].childNodes;
-  el[0].setAttribute("onclick",'el[0].offsetParent.remove()');
+  el.setAttribute("onclick",'document.getElementById("root2").replaceChildren()');
 }

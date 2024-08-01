@@ -33,7 +33,7 @@ class zona(models.Model):
 
 
 class Activity(models.Model):
-    citta = models.CharField(max_length=100)
+    citta = models.CharField(max_length=100, null=True, blank=True)
     name = models.CharField(max_length=100, default="indefinita")
     strada = models.CharField(max_length=100, default="indefinita")
     telefono = models.CharField(
@@ -44,8 +44,11 @@ class Activity(models.Model):
     def __obj__(self):
         return self.name
 
+    def __unicode__(self):
+        return self.name
+
     def __str__(self):
-        return self.name+self.strada
+        return f'{self.name}'
 
 
 class Genere(models.Model):

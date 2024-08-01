@@ -52,7 +52,7 @@ class activityAdmin(admin.ModelAdmin):
         return query
 
     list_display = [
-        "activity_name",
+        "name",
         "citta",
         "strada",
     ]
