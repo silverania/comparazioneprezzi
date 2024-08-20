@@ -1,6 +1,7 @@
 const HOST = "https://127.0.0.1:8000";
 const MEDIAFOLDER = "media/";
 
+
 $(document).ready(function () {
   
 
@@ -17,17 +18,16 @@ function insertProduct() {
   var colProdotti;
   var i;
   var extract = [];
-  var colprodotto = [];
-  var divprodotto = [];
+ 
   var imgprodotto = [];
   var colImage = [];
   var spanProdotto = [];
-  var pProdotto = [];
+  
   var colProductName = [];
   var pPrezzo = [];
   var spanPrezzo = [];
-  var rowCarrello = [];
-
+  
+  
   buttonSearch = document.getElementById("buttonSearch");
   colProdotti = document.getElementById("colprodotti");
   generi = JSON.stringify(generi);
@@ -58,17 +58,6 @@ function insertProduct() {
   buttonSearch.addEventListener("click", function () {
     searchValue = document.getElementById('inputSearch').value;
     extract = [];
-    var carrello = document.getElementsByClassName("button_aggiungi");
-    while (carrello.length > 0) {
-      carrello[0].parentNode.removeChild(carrello[0]);
-    }
-    //e.firstElementChild can be used.
-    var e = document.getElementById('colprodotti');
-    var child = e.lastElementChild;
-    while (child) {
-      e.removeChild(child);
-      child = e.lastElementChild;
-    }
     for (var c = 0; c < productsParse.length; c++) {
       if (searchValue !== "")
         if (productsParse[c].name.toUpperCase().includes(searchValue.toUpperCase())) {
@@ -82,6 +71,21 @@ function insertProduct() {
 
 
   function addElementToScreeen(el) {
+    var e = document.getElementById('colprodotti'); // cancello ricerca precedente 
+    var child = e.lastElementChild;
+    var buttons = document.getElementsByClassName("searched");
+    var buttons = Array.from(buttons);
+    while ((buttons.length - 1) >= 0) {
+      buttons.pop();
+    }
+    while (child) {
+      e.removeChild(child);
+      child = e.lastElementChild;
+    }
+    var rowCarrello = [];
+    var pProdotto = [];
+    var colprodotto = [];
+    var divprodotto = [];
     var elProdotto = document.createElement('DIV');
     for (i = 0; i < el.length; i++) {
       rowCarrello.push(document.createElement("DIV"));
@@ -96,21 +100,23 @@ function insertProduct() {
       colProductName.push(document.createElement("DIV"));
       elProdotto.setAttribute("class", "row");
       rowCarrello[i].classList.add("row");
+      rowCarrello[i].classList.add("button_aggiungi");
       rowCarrello[i].classList.add("justify-content-center");
-      $(rowCarrello[i]).append('<button class="btn-xs btn-warning" onClick="inCarrello(event)"id="button_aggiungi" data-name="'+el[i].name+'" class="btn btn-sm btn-primary"><span id="span_aggiungi_' + el[i].name + "_" + el[i].pk + '">Nel Carrello</span></button>');
-      colprodotto[i].id = "col_" + el[i].name + "_" + el[i].category;
+      $(rowCarrello[i]).append('<button class="btn-xs btn-warning searched" onClick="inCarrello(event)"id="button_aggiungi'+el[i].activity.name+'" data-name="'+el[i].name+'" class="btn btn-sm btn-primary">metti nel carrello</button>');
+      colprodotto[i].id = "col_" + el[i].name + "_" + el[i].activity.name;
       colprodotto[i].classList.add("col-xs-6");
       colprodotto[i].classList.add("datacol");
-      pProdotto[i].id = "p_" + el[i].name + "_" + el[i].category;
+      colprodotto[i].classList.add("button_aggiungi");
+      pProdotto[i].id = "p_" + el[i].name + "_" + el[i].activity.name;
       divprodotto[i].classList.add("row");
       divprodotto[i].classList.add("mt-5");
       divprodotto[i].width = "auto";
-      divprodotto[i].id = "div_" + el[i].name + "_" + el[i].category;
-      pPrezzo[i].id = "p_prezzo_" + el[i].prezzo + "_" + el[i].genere;
+      divprodotto[i].id = "div_" + el[i].name + "_" + el[i].activity.name;
+      pPrezzo[i].id = "p_prezzo_" + el[i].prezzo + "_" + el[i].activity.name;
       spanPrezzo[i].id = "s_prezzo_" + el[i].prezzo;
-      colImage[i].id = "col_Image_" + el[i].name + "_" + el[i].genere;
+      colImage[i].id = "col_Image_" + el[i].name + "_" + el[i].activity.name;
       colImage[i].classList.add("col-4");
-      colProductName[i].id = "colProductName_" + el[i].name + "_" + el[i].category;
+      colProductName[i].id = "colProductName_" + el[i].name + "_" + el[i].activity.name;
       //colImage[i].classList.add("col-12");
       //colImage[i].classList.add("col-md-3");
       
@@ -118,8 +124,8 @@ function insertProduct() {
       imgprodotto[i].classList.add("img-fluid");
       imgprodotto[i].setAttribute("width", "24px");
       imgprodotto[i].setAttribute("align", "right");
-      imgprodotto[i].id = "img_product_" + el[i].name + "_" + el[i].genere;
-      imgprodotto[i].src = MEDIAFOLDER + (el[i].fileds.image).toString();
+      imgprodotto[i].id = "img_product_" + el[i].name + "_" + el[i].activity.name;
+      imgprodotto[i].src = MEDIAFOLDER + (el[i].image).toString();
       pProdotto[i].appendChild(spanProdotto[i]);
       pPrezzo[i].appendChild(spanPrezzo[i]);
       spanProdotto[i].innerText = el[i].name;
@@ -143,12 +149,15 @@ function insertProduct() {
 }
 function inCarrello(ev) {
   var elClicked = document.getElementById(ev.target.id).closest(".datacol").cloneNode(true);
-  
+  elClicked.setAttribute("id","elcloned_"+ev.target.id)
   root2.appendChild(elClicked);
   var changedSpanText = document.getElementById('root2');
-  var parentChangedSpanText = root2.getElementsByTagName("span")[2];
+  var parentChangedSpanText = elClicked.getElementsByTagName("BUTTON")[0];
+  parentChangedSpanText.setAttribute("id","elcloned_for_element_"+ev.target.id)
   parentChangedSpanText.innerText = "Togli dal carrello";
+  parentChangedSpanText.removeAttribute("onClick");
   parentChangedSpanText.classList.add("animateme");
-  var el = root2.childNodes[0].childNodes[1].childNodes;
-  el.setAttribute("onclick",'document.getElementById("root2").replaceChildren()');
+  $(parentChangedSpanText).click(function (e) {
+    document.getElementById(e.target.id).parentNode.parentElement.remove();
+  });
 }

@@ -10,28 +10,31 @@ body {
 
 .section1{
 	background-color:#11181e;
-	width:60%;
-	float:left;
-	height:100vh;
+	width:50%;
+	//height:100vh;
 	border-right: 1vw solid #F5E5D6;
 	box-sizing: border-box;
 	margin:0;
-	min-width: 60%;
-	max-width: 60%;
+	min-width: 50%;
+	max-width: 50%;
 	padding:0;
+	display:inline-flex;
+	flex-basis:50%;
+	flex-wrap:wrap;
 }
 .section2{
 	background-color:#f1c40f;
 	width:40%;
 	/* float:left; */
-	height:100vh;
+	//height:100vh;
 	min-width: 40%;
 	margin:0;
 	/* max-width: 40%; */
 	padding:0;
 	resize: both;
 	box-sizing: border-box;
-	display: inline-block;
+	display:inline-flex;
+	flex-basis:40%;
 }
 @media screen and (min-width: 1024px) {
   span#sprodotti {
@@ -114,6 +117,16 @@ div#divForm {
   /*#formsearch{
     width:100%;
   }*/
+	  span,
+  p[id^="p_"] {
+    font-size: 0.7rem;
+    line-height: 1;
+    margin-bottom: 0;
+  }
+  #spesatext{font-size:medium;font-weight:bold;width: 100%;}
+.form-control-sm {
+font-size:0.7rem!important;
+}
 }
 
 [id^="p_prezzo"] {
@@ -139,7 +152,7 @@ p {
   }*/
   span,
   p[id^="p_"] {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     line-height: 1;
     margin-bottom: 0;
   }

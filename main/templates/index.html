@@ -10,11 +10,6 @@
   <div class=" section1">
     <div class="row mt-3 justify-content-center">
       <div class="col-12 text-center" id="main_title">
-      </div>
-      <div  id="col4_carrello">
-        <div class="row">
-      <div class="col-xs-6 col-md-4 col-lg-3 text-center" id="colprodotti">
-        <span id="sprodotti" class="badge bg-light"></span>
         <form id="formSearch" class="form-inline" action="javascript:void(0);">
           <div class="form-group-sm" id="divForm">
             <!-- i class="fas fa-2xs fa-search h4 text-body"></i-->
@@ -22,6 +17,12 @@
             <button id="buttonSearch" class="mb-2 ms-5 btn-xs btn-success" type="submit">Cerca</button>
           </div>
         </form>
+      </div>
+      <div  id="col4_carrello">
+        <div class="row">
+      <div class="col-xs-6 col-md-4 col-lg-3 text-center" id="colprodotti">
+        <span id="sprodotti" class="badge bg-light"></span>
+        
         <div class="row" id="rowprodotti"></div>
       </div>
     </div>
@@ -57,7 +58,6 @@
   <script src="{% static 'js/index.js' %}"></script>
   <script>
     var generi = '{{ data|escapejs }}';
-    generi.replace("\'b","");
     insertProduct()
   </script>
 {% endblock %}

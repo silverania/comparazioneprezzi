@@ -9,4 +9,5 @@ nell' animnazione checkout(animchist())  devo animare la proprietà color. anima
 - eliminato onclick per formare la lista spesa ...... sto usando gli attributi data_name ecc per impostare il nome articolo ecc.. 
 - La ricerca deve restituire i prodotti in ordine di prezzo e il primo prezzo deve essere il più basso ( e va evidenziato ! ) 
 - modifica l' id dell elemento clonato 
-- devo visualizzare il dato foreignkey in JSON ( non l' id !)
+- risolvere undefined nell' id
+- cambiare l' id a tyutti i tag annidati negli elementi clonati nel carrello
