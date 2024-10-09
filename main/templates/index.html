@@ -7,7 +7,9 @@
 {% endblock %} {% block anteprima %}
   <meta property="og:image" />
 {% endblock %} {% block content %}
-  <div class=" section1">
+
+  
+
     <div class="row mt-3 justify-content-center">
       <div class="col-12 text-center" id="main_title">
         <form id="formSearch" class="form-inline" action="javascript:void(0);">
@@ -18,9 +20,11 @@
           </div>
         </form>
       </div>
-      <div  id="col4_carrello">
-        <div class="row">
-      <div class="col-xs-6 col-md-4 col-lg-3 text-center" id="colprodotti">
+      </div>
+    
+      
+        <div id="search" class="row">
+      <div class="col-xs-12 col-md-12 col-lg-text-center" id="colprodotti">
         <span id="sprodotti" class="badge bg-light"></span>
         
         <div class="row" id="rowprodotti"></div>
@@ -31,20 +35,22 @@
           
         
         </div>
-      </div>
-    </div>
-  </div>
+      
+    
+  
 
   <div class="section2 ">
     
     <div id="root"></div>
           <div id="div_carrello">
-            <div class="container-fluid">
-              <div class="row justify-content-center">
-                <i class="fad fa-2x fa-shopping-cart"></i></span>
-                <div class="col" id="colShoppingCart"><span id="spesatext" class="badge bg-warning" >nel carrello
-                  
+            
+              <div class="row" id="rowCarrello">
+                <div class="col" id="colCarrello2">
+                
+                <div class="col" id="colShoppingCart"><i class="fad fa-2x fa-shopping-cart"></i><span id="spesatext" class="badge bg-warning" >nel carrello
+                </span>  
                 </div>
+              </div>
               </div>
               <div class="row">
                 <div class="col" id="divElementsselected">
@@ -52,7 +58,7 @@
                   <div class="row" id="rowElements"></div>
                 </div>
               </div>
-            </div>
+            
           </div>
   </div>
   <script src="{% static 'js/index.js' %}"></script>
