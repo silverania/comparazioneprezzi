@@ -58,6 +58,9 @@ span#sprodotti {
   position: relative;
   left:10px;
 }
+#button_font{
+  font-size:1.5vw;
+}
 
 div#div_carrello {
   border-left: 3px solid blue;
@@ -140,9 +143,6 @@ p {
   font-size: 0.6rem;
 }
 #button_aggiungi {
-  display:block;
-  width:fit-content;
-  margin: 13px auto;
 }
 
 @media screen and (max-width: 574px) {

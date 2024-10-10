@@ -87,7 +87,7 @@ function insertProduct() {
     var colprodotto = [];
     var divprodotto = [];
     var elProdotto = document.createElement('DIV');
-    for (i = 0; i < el.length; i++) {
+    for (i = 0; i <= el.length-1; i++) {
       rowCarrello.push(document.createElement("DIV"));
       colprodotto.push(document.createElement("DIV"));
       divprodotto.push(document.createElement("DIV"));
@@ -101,20 +101,19 @@ function insertProduct() {
       elProdotto.setAttribute("class", "row");
       elProdotto.setAttribute("id", "elprodotto");
       rowCarrello[i].classList.add("row");
-      rowCarrello[i].classList.add("button_aggiungi");
+      //rowCarrello[i].classList.add("button_aggiungi");
       rowCarrello[i].classList.add("justify-content-center");
       colprodotto[i].id = "col_" + el[i].name + "_" + el[i].activity.name;
       colprodotto[i].classList.add("col-3");
       colprodotto[i].classList.add("datacol");
       colprodotto[i].classList.add("button_aggiungi");
       pProdotto[i].id = "p_" + el[i].name + "_" + el[i].activity.name;
-      divprodotto[i].classList.add("row");
-      divprodotto[i].width = "auto";
-      divprodotto[i].id = "div_" + el[i].name + "_" + el[i].activity.name;
+      //divprodotto[i].classList.add("row");
+      //divprodotto[i].width = "auto";
+      //divprodotto[i].id = "div_" + el[i].name + "_" + el[i].activity.name;
       pPrezzo[i].id = "p_prezzo_" + el[i].prezzo + "_" + el[i].activity.name;
       spanPrezzo[i].id = "s_prezzo_" + el[i].prezzo;
       colImage[i].id = "col_Image_" + el[i].name + "_" + el[i].activity.name;
-      colImage[i].classList.add("col-4");
       colProductName[i].id = "colProductName_" + el[i].name + "_" + el[i].activity.name;
 
       imgprodotto[i].setAttribute("alt", "Nessuna immagine !");
@@ -130,12 +129,11 @@ function insertProduct() {
       spanPrezzo[i].innerText = el[i].prezzo + "euro";
       colProductName[i].appendChild(pProdotto[i]);
       colProductName[i].appendChild(pPrezzo[i]);
-      colProductName[i].classList.add("col-8");
-      $(colProductName[i]).append('<button class="btn btn-xs btn-warning searched" onClick="inCarrello(event)"id="button_aggiungi' + el[i].activity.name + '" data-name="' + el[i].name + '" class="btn btn-sm btn-primary">aggiungi a spesa</button>');
+      $(colProductName[i]).append('<button class="btn btn-xs btn-warning searched" onClick="inCarrello(event)"id="button_aggiungi' + el[i].activity.name + '" data-name="' + el[i].name + '" ><span id="button_font">nel carrello</span></button>');
 
       divprodotto[i].appendChild(colImage[i]);
-      colImage[i].appendChild(colProductName[i]);
-      colImage[i].appendChild(imgprodotto[i]);
+      divprodotto[i].appendChild(colProductName[i]);
+      divprodotto[i].appendChild(imgprodotto[i]);
       colprodotto[i].appendChild(divprodotto[i]);
       colprodotto[i].appendChild(rowCarrello[i]);
       elProdotto.appendChild(colprodotto[i]);
