@@ -11,3 +11,5 @@ nell' animnazione checkout(animchist())  devo animare la proprietà color. anima
 - modifica l' id dell elemento clonato 
 - risolvere undefined nell' id
 - cambiare l' id a tyutti i tag annidati negli elementi clonati nel carrello
+- usando col-5 per il prodotto riesco a metterne 2 sulla stessa riga , devo provare con 3 prodotti che succede !
+- non pulisce dal button ( la funzione di pulizia )  ....devo distruggere el !

@@ -72,23 +72,22 @@ function insertProduct() {
 
   function addElementToScreeen(el) {
     var e = document.getElementById('colprodotti'); // cancello ricerca precedente 
-    var child = e.lastElementChild;
+    e.innerHTML = "";
     var buttons = document.getElementsByClassName("searched");
     var buttons = Array.from(buttons);
     while ((buttons.length - 1) >= 0) {
       buttons.pop();
     }
-    while (child) {
-      e.removeChild(child);
-      child = e.lastElementChild;
+    while (colProductName.length > 0) {
+      colProductName.pop();
     }
     var rowCarrello = [];
     var pProdotto = [];
     var colprodotto = [];
     var divprodotto = [];
     var elProdotto = document.createElement('DIV');
-    for (i = 0; i <= el.length-1; i++) {
-      rowCarrello.push(document.createElement("DIV"));
+    for (i = 0; i < el.length; i++) {
+      //rowCarrello.push(document.createElement("DIV"));
       colprodotto.push(document.createElement("DIV"));
       divprodotto.push(document.createElement("DIV"));
       imgprodotto.push(document.createElement("IMG"));
@@ -100,11 +99,11 @@ function insertProduct() {
       colProductName.push(document.createElement("DIV"));
       elProdotto.setAttribute("class", "row");
       elProdotto.setAttribute("id", "elprodotto");
-      rowCarrello[i].classList.add("row");
+      //rowCarrello[i].classList.add("row");
       //rowCarrello[i].classList.add("button_aggiungi");
-      rowCarrello[i].classList.add("justify-content-center");
+      //rowCarrello[i].classList.add("justify-content-center");
       colprodotto[i].id = "col_" + el[i].name + "_" + el[i].activity.name;
-      colprodotto[i].classList.add("col-3");
+      colprodotto[i].classList.add("col-5");
       colprodotto[i].classList.add("datacol");
       colprodotto[i].classList.add("button_aggiungi");
       pProdotto[i].id = "p_" + el[i].name + "_" + el[i].activity.name;
@@ -131,11 +130,10 @@ function insertProduct() {
       colProductName[i].appendChild(pPrezzo[i]);
       $(colProductName[i]).append('<button class="btn btn-xs btn-warning searched" onClick="inCarrello(event)"id="button_aggiungi' + el[i].activity.name + '" data-name="' + el[i].name + '" ><span id="button_font">nel carrello</span></button>');
 
-      divprodotto[i].appendChild(colImage[i]);
-      divprodotto[i].appendChild(colProductName[i]);
-      divprodotto[i].appendChild(imgprodotto[i]);
-      colprodotto[i].appendChild(divprodotto[i]);
-      colprodotto[i].appendChild(rowCarrello[i]);
+      colprodotto[i].appendChild(colImage[i]);
+      colprodotto[i].appendChild(colProductName[i]);
+      colprodotto[i].appendChild(imgprodotto[i]);
+
       elProdotto.appendChild(colprodotto[i]);
       colProdotti.appendChild(elProdotto);
     }
