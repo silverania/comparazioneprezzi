@@ -39,9 +39,10 @@ class ProdottoSerializer(serializers.ModelSerializer):
     genere = GenereSerializer(read_only=True)
     image = serializers.CharField(max_length=200, read_only=True)
     prezzo = serializers.CharField(read_only=True,max_length=50)
+    inOfferta = serializers.DateField(format="%d/%b/%Y")
     class Meta:
         model = Prodotto
-        fields = ('name','activity','genere','image','prezzo')
+        fields = ('name','activity','genere','image','prezzo','inOfferta')
 
 class homePage(View):
     def get(self, request):

@@ -3,7 +3,9 @@ body {
   height:100vh;
 }
 
-
+span{
+  pointer-events: none;
+}
 
 .section1{
   min-width:100%;
@@ -168,7 +170,6 @@ font-size:0.7rem!important;
 .searched{
   
   font-size: 0.8em!important;
-  margi-left: 3px!important;
 }
 /*.form-control-borderless {
   border: none;

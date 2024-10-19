@@ -1,13 +1,15 @@
 const HOST = "https://127.0.0.1:8000";
 const MEDIAFOLDER = "media/";
-
-
+const elInCarrello = Array();
+var el = "";
+var jsonEl;
 $(document).ready(function () {
   
-
   
 });
 function insertProduct() {
+   
+
   var searchValue;
   var buttonSearch;
   var generiJson;
@@ -60,15 +62,59 @@ function insertProduct() {
     extract = [];
     for (var c = 0; c < productsParse.length; c++) {
       if (searchValue !== "")
-        if (productsParse[c].name.toUpperCase().includes(searchValue.toUpperCase())) {
-          extract.push(productsParse[c]);
+        try{
+          if (productsParse[c].name.toUpperCase().includes(searchValue.toUpperCase())) {
+            if (elInCarrello.length != 0) {
+              for (var s = 0; s < elInCarrello.length; s++) {
+                if (productsParse[c].activity.id != elInCarrello[s]) {
+                  extract.push(productsParse[c]);
+                  console.log("c'è cacat UCAZZZ");
+                }
+              }
+            }
+            else {
+              extract.push(productsParse[c]);
+            }
+
+
+            
+           
+          }
+          else { continue; }
         }
-        else { continue; }
+        catch (e) {
+          console.log("no il tipo che mi aspetto!");
+        }
+        
     }
     addElementToScreeen(extract);
   }
   );
 
+  // cerca relemeti comunui in array
+  function intersect_arrays(a, b) {
+    var sorted_a = a.concat().sort();
+    var sorted_b = b.concat().sort();
+    var common = [];
+    var a_i = 0;
+    var b_i = 0;
+
+    while (a_i < a.length
+      && b_i < b.length) {
+      if (sorted_a[a_i] === sorted_b[b_i]) {
+        common.push(sorted_a[a_i]);
+        a_i++;
+        b_i++;
+      }
+      else if (sorted_a[a_i] < sorted_b[b_i]) {
+        a_i++;
+      }
+      else {
+        b_i++;
+      }
+    }
+    return common;
+  }
 
   function addElementToScreeen(el) {
     var e = document.getElementById('colprodotti'); // cancello ricerca precedente 
@@ -87,6 +133,7 @@ function insertProduct() {
     var divprodotto = [];
     var elProdotto = document.createElement('DIV');
     for (i = 0; i < el.length; i++) {
+     jsonEl = el[i].activity.id;
       //rowCarrello.push(document.createElement("DIV"));
       colprodotto.push(document.createElement("DIV"));
       divprodotto.push(document.createElement("DIV"));
@@ -110,8 +157,8 @@ function insertProduct() {
       //divprodotto[i].classList.add("row");
       //divprodotto[i].width = "auto";
       //divprodotto[i].id = "div_" + el[i].name + "_" + el[i].activity.name;
-      pPrezzo[i].id = "p_prezzo_" + el[i].prezzo + "_" + el[i].activity.name;
-      spanPrezzo[i].id = "s_prezzo_" + el[i].prezzo;
+      pPrezzo[i].id = "p_prezzo_" + el[i].prezzo + "_" + el[i].activity.name + "_" + el[i].inOfferta;
+      spanPrezzo[i].id = "s_prezzo_" + el[i].prezzo+  "_" + el[i].genere.inOfferta;
       colImage[i].id = "col_Image_" + el[i].name + "_" + el[i].activity.name;
       colProductName[i].id = "colProductName_" + el[i].name + "_" + el[i].activity.name;
 
@@ -128,7 +175,7 @@ function insertProduct() {
       spanPrezzo[i].innerText = el[i].prezzo + "euro";
       colProductName[i].appendChild(pProdotto[i]);
       colProductName[i].appendChild(pPrezzo[i]);
-      $(colProductName[i]).append('<button class="btn btn-xs btn-warning searched" onClick="inCarrello(event)"id="button_aggiungi' + el[i].activity.name + '" data-name="' + el[i].name + '" ><span id="button_font">nel carrello</span></button>');
+      $(colProductName[i]).append('<button class="btn btn-xs btn-warning searched" onClick="inCarrello(event,jsonEl)"id="button_aggiungi' + el[i].activity.name + '" data-name="' + el[i].name + '" ><span id="button_font">nel carrello</span></button>');
 
       colprodotto[i].appendChild(colImage[i]);
       colprodotto[i].appendChild(colProductName[i]);
@@ -137,14 +184,15 @@ function insertProduct() {
       elProdotto.appendChild(colprodotto[i]);
       colProdotti.appendChild(elProdotto);
     }
-    return elProdotto;
   }
 
 
 }
-function inCarrello(ev) {
+function inCarrello(ev,el) {
   var elClicked = document.getElementById(ev.target.id).closest(".datacol").cloneNode(true);
-  elClicked.setAttribute("id","elcloned_"+ev.target.id)
+  var butClicked = document.getElementById(ev.target.id).closest(".searched").disabled=true;
+  elClicked.setAttribute("id", "elcloned_" + ev.target.id)
+  elInCarrello.push(elClicked);
   root2.appendChild(elClicked);
   var changedSpanText = document.getElementById('root2');
   var parentChangedSpanText = elClicked.getElementsByTagName("BUTTON")[0];
@@ -156,3 +204,5 @@ function inCarrello(ev) {
     document.getElementById(e.target.id).parentNode.parentElement.remove();
   });
 }
+
+

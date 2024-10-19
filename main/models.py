@@ -74,10 +74,10 @@ class Prodotto(models.Model):
     disponibile = models.BooleanField(default=True)
     creato = models.DateTimeField(auto_now_add=True)
     aggiornato = models.DateTimeField(auto_now=True)
-    inOfferta = models.DateTimeField(null=True, blank=True)
+    inOfferta = models.DateField(null=True, blank=True)
     activity = models.ForeignKey("Activity", on_delete=models.CASCADE,blank=True,null=True)
     class Meta:
-        ordering = ("prezzo", "genere", "descrizione")
+        ordering = ("-prezzo", "genere", "descrizione")
         index_together = (("id", "slug"),)
 
     def __str__(self):
