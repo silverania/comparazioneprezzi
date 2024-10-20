@@ -1,8 +1,10 @@
+
 const HOST = "https://127.0.0.1:8000";
 const MEDIAFOLDER = "media/";
 const elInCarrello = Array();
 var el = "";
 var jsonEl;
+var prices=[];
 $(document).ready(function () {
   
   
@@ -91,7 +93,7 @@ function insertProduct() {
   }
   );
 
-  // cerca relemeti comunui in array
+  // cerca alimenti comunui in array
   function intersect_arrays(a, b) {
     var sorted_a = a.concat().sort();
     var sorted_b = b.concat().sort();
@@ -115,6 +117,16 @@ function insertProduct() {
     }
     return common;
   }
+  function checkLowestPrice(el) {
+    var i = 0;
+    var prices=[];
+    while (i < el.length) {
+      prices.push(parseFloat(el[i].prezzo)); 
+      i++;
+      }
+    var lowestPrice = Math.min(...prices);
+    return lowestPrice;
+  }
 
   function addElementToScreeen(el) {
     var e = document.getElementById('colprodotti'); // cancello ricerca precedente 
@@ -132,8 +144,11 @@ function insertProduct() {
     var colprodotto = [];
     var divprodotto = [];
     var elProdotto = document.createElement('DIV');
+    
+
+
     for (i = 0; i < el.length; i++) {
-     jsonEl = el[i].activity.id;
+      jsonEl = el[i].activity.id;
       //rowCarrello.push(document.createElement("DIV"));
       colprodotto.push(document.createElement("DIV"));
       divprodotto.push(document.createElement("DIV"));
@@ -153,6 +168,7 @@ function insertProduct() {
       colprodotto[i].classList.add("col-5");
       colprodotto[i].classList.add("datacol");
       colprodotto[i].classList.add("button_aggiungi");
+      colprodotto[i].setAttribute("data-price", el[i].prezzo);
       pProdotto[i].id = "p_" + el[i].name + "_" + el[i].activity.name;
       //divprodotto[i].classList.add("row");
       //divprodotto[i].width = "auto";
@@ -184,6 +200,7 @@ function insertProduct() {
       elProdotto.appendChild(colprodotto[i]);
       colProdotti.appendChild(elProdotto);
     }
+    var lowest = checkLowestPrice(el); // alimento con prezzo piu basso
   }
 
 

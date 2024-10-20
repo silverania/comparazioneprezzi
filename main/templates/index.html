@@ -47,17 +47,16 @@
               <div class="row" id="rowCarrello">
                 <div class="col" id="colCarrello2">
                                
-                <div class="col" id="colShoppingCart"><span id="spesatext" class="badge bg-warning" >nel carrello <i class="fad fa-2x fa-shopping-cart"></i>  
+                <div class="col" id="colShoppingCart"><span id="spesatext" class="badge bg-primary" >nel carrello  <i class="fad fa-2x fa-shopping-cart"></i>  
 
                 </span>
                 </div>
               </div>
               </div>
-              <div class="row">
-                <div id="divElementsselected">
-                  <div id="root2"></div>
+              <div class="row" id="root2">
+
                   
-                </div>
+                
               </div>
             
           </div>
@@ -67,4 +66,22 @@
     var generi = '{{ data|escapejs }}';
     insertProduct()
   </script>
+
+  !-- FINESTRA MODALE --!
+  <h2>Modal Example</h2>
+
+<!-- Trigger/Open The Modal -->
+<button id="myBtn">Open Modal</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Some text in the Modal..</p>
+  </div>
+
+</div>
+
 {% endblock %}
