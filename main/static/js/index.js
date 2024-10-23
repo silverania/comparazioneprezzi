@@ -1,7 +1,7 @@
 
 const HOST = "https://127.0.0.1:8000";
 const MEDIAFOLDER = "media/";
-const elInCarrello = Array();
+var elInCarrello = Array();
 var el = "";
 var jsonEl;
 var prices=[];
@@ -125,7 +125,7 @@ function insertProduct() {
       i++;
       }
     var lowestPrice = Math.min(...prices);
-    return lowestPrice;
+    return el[i];
   }
 
   function addElementToScreeen(el) {
@@ -207,7 +207,7 @@ function insertProduct() {
 }
 function inCarrello(ev,el) {
   var elClicked = document.getElementById(ev.target.id).closest(".datacol").cloneNode(true);
-  var butClicked = document.getElementById(ev.target.id).closest(".searched").disabled=true;
+  var butClicked = document.getElementById(ev.target.id).closest(".searched").disabled = true;
   elClicked.setAttribute("id", "elcloned_" + ev.target.id)
   elInCarrello.push(elClicked);
   root2.appendChild(elClicked);
@@ -217,7 +217,9 @@ function inCarrello(ev,el) {
   parentChangedSpanText.innerText = "Togli dal carrello";
   parentChangedSpanText.removeAttribute("onClick");
   parentChangedSpanText.classList.add("animateme");
+  parentChangedSpanText.classList.remove("searched");
   $(parentChangedSpanText).click(function (e) {
+    elInCarrello.pop(elClicked)
     document.getElementById(e.target.id).parentNode.parentElement.remove();
   });
 }

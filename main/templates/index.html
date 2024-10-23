@@ -30,18 +30,16 @@
         <div class="row" id="rowprodotti"></div>
       </div>
     </div>
-
         <div  id="colCarrello">
-          
-        
         </div>
-      
-    
+  
+</div>
   
 
   <div class="section2 ">
     
-    <div id="root"></div>
+    <div id="root">
+    </div>
           <div id="div_carrello">
             
               <div class="row" id="rowCarrello">
@@ -55,19 +53,29 @@
               </div>
               <div class="row" id="root2">
 
+
                   
                 
               </div>
             
           </div>
-  </div>
-  <script src="{% static 'js/index.js' %}"></script>
-  <script>
-    var generi = '{{ data|escapejs }}';
-    insertProduct()
-  </script>
-
-  !-- FINESTRA MODALE --!
+          <script>
+                if (Modernizr.geolocation) {
+                    navigator.geolocation.getCurrentPosition(geolocalizzami);
+} else {alert("geolocalizzazione non supportata dal browser!");
+}
+                function geolocalizzami(position) {
+                    document.getElementById("lon").innerHTML = position.coords.longitude;
+                document.getElementById("lat").innerHTML = position.coords.latitude;
+                document.getElementById("when").innerHTML = new Date(position.timestamp);
+}
+            </script>
+            <ul>
+                <li>Longitudine: <span id="lon">-</span></li>
+                <li>Latitudine: <span id="lat">-</span></li>
+                <li>Coordinate identificate in (data . ora): <span id="when">-</span></li>
+            </ul>
+        !-- FINESTRA MODALE --!
   <h2>Modal Example</h2>
 
 <!-- Trigger/Open The Modal -->
@@ -81,7 +89,20 @@
     <span class="close">&times;</span>
     <p>Some text in the Modal..</p>
   </div>
-
 </div>
 
+  </div>
+  
+  <script>
+    var generi = '{{ data|escapejs }}';
+    insertProduct()
+  </script>
+
+ 
+ 
+               
+        
+        
+          
+            
 {% endblock %}

@@ -1,0 +1,35 @@
+    <html>
+        <head>
+            
+            <meta charset="utf-8">
+                <title>Geolocalizzami: longitudine e latitudine</title>
+                <script src="modernizr-1.5.min.js"></script>
+                <style>
+                    body {
+                        margin: 1.8em;
+                    font: 1.7em/2em verdana, sans-serif;
+}
+                    span {color: #f00; }
+                    li {list - style - type:none; }
+                </style>
+        </head>
+        <body>
+          dddgfdfdsw
+            <script>
+                if (Modernizr.geolocation) {
+                    navigator.geolocation.getCurrentPosition(geolocalizzami);
+} else {alert(“geolocalizzazione non supportata dal browser!”);
+}
+                function geolocalizzami(position) {
+                    document.getElementById("lon").innerHTML = position.coords.longitude;
+                document.getElementById("lat").innerHTML = position.coords.latitude;
+                document.getElementById("when").innerHTML = new Date(position.timestamp);
+}
+            </script>
+            <ul>
+                <li>Longitudine: <span id="lon">-</span></li>
+                <li>Latitudine: <span id="lat">-</span></li>
+                <li>Coordinate identificate in (data . ora): <span id="when">-</span></li>
+            </ul>
+          </body>
+          </html>
