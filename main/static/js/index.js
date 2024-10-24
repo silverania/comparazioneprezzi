@@ -67,10 +67,18 @@ function insertProduct() {
         try{
           if (productsParse[c].name.toUpperCase().includes(searchValue.toUpperCase())) {
             if (elInCarrello.length != 0) {
-              for (var s = 0; s < elInCarrello.length; s++) {
-                if (productsParse[c].activity.id != elInCarrello[s]) {
-                  extract.push(productsParse[c]);
-                  console.log("c'è cacat UCAZZZ");
+              for (var s = elInCarrello.length; s > 0; s--) {
+                if (s == elInCarrello.length) {
+                  s = s - 1;
+                  if (productsParse[c].pk != elInCarrello[s].dataset.name) {
+                    if (s == 0) {
+                      extract.push(productsParse[c]);
+                    }
+                    else {
+                      continue;
+                    }
+                  }
+                
                 }
               }
             }
@@ -148,7 +156,7 @@ function insertProduct() {
 
 
     for (i = 0; i < el.length; i++) {
-      jsonEl = el[i].activity.id;
+      jsonEl = el[i].pk;
       //rowCarrello.push(document.createElement("DIV"));
       colprodotto.push(document.createElement("DIV"));
       divprodotto.push(document.createElement("DIV"));
@@ -169,6 +177,7 @@ function insertProduct() {
       colprodotto[i].classList.add("datacol");
       colprodotto[i].classList.add("button_aggiungi");
       colprodotto[i].setAttribute("data-price", el[i].prezzo);
+      colprodotto[i].setAttribute("data-name", el[i].pk);
       pProdotto[i].id = "p_" + el[i].name + "_" + el[i].activity.name;
       //divprodotto[i].classList.add("row");
       //divprodotto[i].width = "auto";
