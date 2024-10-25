@@ -46,10 +46,11 @@ function insertProduct() {
   }
 
   class Prodotto {
-    constructor(nome, image, descrizione, prezzo, disponibile, creato, aggiornato, inOfferta) {
+    constructor(nome, image,imageLogo, descrizione, prezzo, disponibile, creato, aggiornato, inOfferta) {
       this.nome = nome;
       this.slug = slug;
-      this.image = image
+      this.image = image;
+      this.imageLogo = imageLogo;
       this.descrizione = descrizione;
       this.prezzo = prezzo;
       this.disponibile = disponibile;
@@ -135,7 +136,15 @@ function insertProduct() {
     var lowestPrice = Math.min(...prices);
     return el[i];
   }
-
+  
+  
+  function ani() {
+    document.getElementById('img').className = 'classname';
+  }
+  function ani() {
+    document.getElementById('button').className = 'ani';
+  }
+  
   function addElementToScreeen(el) {
     var e = document.getElementById('colprodotti'); // cancello ricerca precedente 
     e.innerHTML = "";
@@ -150,6 +159,7 @@ function insertProduct() {
     var rowCarrello = [];
     var pProdotto = [];
     var colprodotto = [];
+    var imgLogo = [];
     var divprodotto = [];
     var elProdotto = document.createElement('DIV');
     
@@ -159,6 +169,7 @@ function insertProduct() {
       jsonEl = el[i].pk;
       //rowCarrello.push(document.createElement("DIV"));
       colprodotto.push(document.createElement("DIV"));
+      imgLogo.push(document.createElement("IMG"));
       divprodotto.push(document.createElement("DIV"));
       imgprodotto.push(document.createElement("IMG"));
       spanProdotto.push(document.createElement("SPAN"));
@@ -178,6 +189,9 @@ function insertProduct() {
       colprodotto[i].classList.add("button_aggiungi");
       colprodotto[i].setAttribute("data-price", el[i].prezzo);
       colprodotto[i].setAttribute("data-name", el[i].pk);
+      
+      imgLogo[i].id = "img_logo" + el[i].name + "_" + el[i].activity.name;
+      imgLogo[i].setAttribute("data-logo", el[i].pk);
       pProdotto[i].id = "p_" + el[i].name + "_" + el[i].activity.name;
       //divprodotto[i].classList.add("row");
       //divprodotto[i].width = "auto";
@@ -193,6 +207,13 @@ function insertProduct() {
       imgprodotto[i].setAttribute("align", "right");
       imgprodotto[i].id = "img_product_" + el[i].name + "_" + el[i].activity.name;
       imgprodotto[i].src = MEDIAFOLDER + (el[i].image).toString();
+
+      imgLogo[i].setAttribute("alt", "Nessuna immagine !");
+      imgLogo[i].classList.add("img-fluid");
+      imgLogo[i].setAttribute("width", "24px");
+      imgLogo[i].setAttribute("align", "right");
+      imgLogo[i].id = "img_logo_" + el[i].name + "_" + el[i].activity.name;
+      imgLogo[i].src = MEDIAFOLDER + (el[i].activity.imageLogo).toString();
       pProdotto[i].appendChild(spanProdotto[i]);
       pPrezzo[i].appendChild(spanPrezzo[i]);
       spanProdotto[i].innerText = el[i].name;
@@ -200,11 +221,12 @@ function insertProduct() {
       spanPrezzo[i].innerText = el[i].prezzo + "euro";
       colProductName[i].appendChild(pProdotto[i]);
       colProductName[i].appendChild(pPrezzo[i]);
-      $(colProductName[i]).append('<button class="btn btn-xs btn-warning searched" onClick="inCarrello(event,jsonEl)"id="button_aggiungi' + el[i].activity.name + '" data-name="' + el[i].name + '" ><span id="button_font">nel carrello</span></button>');
+      $(colProductName[i]).append('<button class="btn btn-xs btn-primary searched ani" onClick="inCarrello(event,jsonEl);ani();"id="button_aggiungi' + el[i].activity.name + '" data-name="' + el[i].name + '" ><span id="button_font">nel carrello</span></button>');
 
       colprodotto[i].appendChild(colImage[i]);
       colprodotto[i].appendChild(colProductName[i]);
       colprodotto[i].appendChild(imgprodotto[i]);
+      colProductName[i].appendChild(imgLogo[i]);
 
       elProdotto.appendChild(colprodotto[i]);
       colProdotti.appendChild(elProdotto);
@@ -214,7 +236,8 @@ function insertProduct() {
 
 
 }
-function inCarrello(ev,el) {
+function inCarrello(ev, el) {
+  document.getElementById(ev.target.id).style.transform = "rotate(-2deg)";
   var elClicked = document.getElementById(ev.target.id).closest(".datacol").cloneNode(true);
   var butClicked = document.getElementById(ev.target.id).closest(".searched").disabled = true;
   elClicked.setAttribute("id", "elcloned_" + ev.target.id)

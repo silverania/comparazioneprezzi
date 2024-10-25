@@ -20,7 +20,8 @@ class LazyEncoder(DjangoJSONEncoder):
 
 
 class ActivitySerializer(serializers.ModelSerializer):
-    # citta=serializers.CharField(read_only=True)
+    citta=serializers.CharField(read_only=True)
+    imageLogo = serializers.CharField(max_length=200, read_only=True)
     class Meta:
         model = Activity
         fields = ('__all__')  # put your fields instead of "..."

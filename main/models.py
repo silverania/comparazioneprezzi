@@ -39,8 +39,7 @@ class Activity(models.Model):
     telefono = models.CharField(
         max_length=30, default="non disponibile", null=True, blank=True
     )
-    logo = models.ImageField(upload_to="loghi",null=True,blank=True)
-
+    imageLogo = models.ImageField(upload_to="media/prodotti/%Y/%m/%d", blank=True)
     def __obj__(self):
         return self.name
 

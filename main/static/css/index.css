@@ -49,6 +49,9 @@ span{
   width:100%;
   height:auto;
 }
+#root2{
+margin-top:15px;
+}
 .section1{
   min-width:100%;
   height: 50%;
@@ -142,6 +145,15 @@ img[id^="img_product"] {
   width: 50px;
   height: auto;
   float: left;
+  border:3px solid grey;
+}
+
+img[id^="img_logo"] {
+  width: 60%;
+  height: auto;
+  float: none;
+  vertical-align: middle;
+
 }
 
 div#divForm {
@@ -165,9 +177,8 @@ div#divForm {
   }
 	  span,
   p[id^="p_"] {
-    font-size: 0.7rem;
-    line-height: 1;
-    margin-bottom: 0;
+    font-size: 1rem;
+    line-height: 1.2;
   }
   #spesatext{font-size:medium;font-weight:bold;width: 100%;}
 .form-control-sm {
@@ -209,10 +220,7 @@ font-size:0.7rem!important;
     width: 20px;
     height: auto;
 }
-.searched{
-  
-  font-size: 0.8em!important;
-}
+
 /*.form-control-borderless {
   border: none;
 }*/
