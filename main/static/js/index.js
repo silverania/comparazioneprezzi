@@ -200,7 +200,6 @@ function insertProduct() {
       spanPrezzo[i].id = "s_prezzo_" + el[i].prezzo+  "_" + el[i].genere.inOfferta;
       colImage[i].id = "col_Image_" + el[i].name + "_" + el[i].activity.name;
       colProductName[i].id = "colProductName_" + el[i].name + "_" + el[i].activity.name;
-
       imgprodotto[i].setAttribute("alt", "Nessuna immagine !");
       imgprodotto[i].classList.add("img-fluid");
       imgprodotto[i].setAttribute("width", "24px");
@@ -221,12 +220,15 @@ function insertProduct() {
       spanPrezzo[i].innerText = el[i].prezzo + "euro";
       colProductName[i].appendChild(pProdotto[i]);
       colProductName[i].appendChild(pPrezzo[i]);
-      $(colProductName[i]).append('<button class="btn btn-xs btn-primary searched ani" onClick="inCarrello(event,jsonEl);ani();"id="button_aggiungi' + el[i].activity.name + '" data-name="' + el[i].name + '" ><span id="button_font">nel carrello</span></button>');
 
       colprodotto[i].appendChild(colImage[i]);
-      colprodotto[i].appendChild(colProductName[i]);
-      colprodotto[i].appendChild(imgprodotto[i]);
+      
+      colImage[i].appendChild(imgprodotto[i]);
+      colImage[i].appendChild(colProductName[i]);
       colProductName[i].appendChild(imgLogo[i]);
+      $(colprodotto[i]).append('<button class="btn btn-xs btn-primary searched ani" onClick="inCarrello(event,jsonEl);ani();"id="button_aggiungi' + el[i].activity.name + '" data-name="' + el[i].name + '" ><span id="button_font">nel carrello</span></button>');
+
+      
 
       elProdotto.appendChild(colprodotto[i]);
       colProdotti.appendChild(elProdotto);
@@ -246,7 +248,7 @@ function inCarrello(ev, el) {
   var changedSpanText = document.getElementById('root2');
   var parentChangedSpanText = elClicked.getElementsByTagName("BUTTON")[0];
   parentChangedSpanText.setAttribute("id","elcloned_for_element_"+ev.target.id)
-  parentChangedSpanText.innerText = "Togli dal carrello";
+  parentChangedSpanText.innerText = "togli";
   parentChangedSpanText.removeAttribute("onClick");
   parentChangedSpanText.classList.add("animateme");
   parentChangedSpanText.classList.remove("searched");

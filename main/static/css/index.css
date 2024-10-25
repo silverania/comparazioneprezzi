@@ -2,6 +2,10 @@ body {
   min-height: 100vh;
   height:100vh;
 }
+.datacol{
+  padding:0;
+  margin:0;
+}
 /* MODAL WINDOWS*/
 .modal {
   display: none; /* Hidden by default */
@@ -136,20 +140,22 @@ span,p[id^="p_"] {
 }
 
 div[id^="col_Image_"] {
-  /* display: inline-block; */
-  max-width: 50%;
+  display: inline-block;
+  width:100%; 
+  max-width: 100%;
   height:auto;
 }
 
 img[id^="img_product"] {
-  width: 50px;
+ /* width: 50px;*/
   height: auto;
+  margin-right: 20px;
   float: left;
-  border:3px solid grey;
+ /* border:3px solid grey;*/
 }
 
 img[id^="img_logo"] {
-  width: 60%;
+  width: 40%;
   height: auto;
   float: none;
   vertical-align: middle;
@@ -162,9 +168,9 @@ div#divForm {
 
 [id^="colProductName"],#col_Image {
   display: inline-block;
-  /* margin: 0 auto; */
-  padding: 0;
-  width: auto;
+    /* margin: 0 auto; */
+    padding: 0;
+    width: 20%;
 }
 @media screen and (max-width: 992px) {
   #formSearch{
@@ -199,9 +205,14 @@ p {
 }
 [id^=button_aggiungi] {
   margin-left:6px;
+  float:left;
+  padding:2px;
 }
 
 @media screen and (max-width: 574px) {
+  .searched{
+font-size:0.8rem;
+  }
   /*#formsearch{
     width:100%;
   }*/
@@ -217,8 +228,8 @@ p {
 font-size:0.7rem!important;
 }
 	img[id^="img_product"] {
-    width: 20px;
-    height: auto;
+    /*width: 20px;
+    height: auto;*/
 }
 
 /*.form-control-borderless {
@@ -240,5 +251,6 @@ font-size:0.7rem!important;
 .animateme {
   animation-name: carrello;
   animation-duration: 10s;
+  font-size: 0.8em!important;
 }
 }

@@ -14,3 +14,4 @@ nell' animnazione checkout(animchist())  devo animare la proprietà color. anima
 - usando col-5 per il prodotto riesco a metterne 2 sulla stessa riga , devo provare con 3 prodotti che succede !
 - non pulisce dal button ( la funzione di pulizia )  ....devo distruggere el !
 - riga 70 , gli elementi già in carrello non devono essere aggiunti allo schermo
+- -quando rimuovo elemeto dal carrello vengono rimossi tutti
