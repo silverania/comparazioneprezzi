@@ -153,12 +153,13 @@ function insertProduct() {
     while ((buttons.length - 1) >= 0) {
       buttons.pop();
     }
-    while (colProductName.length > 0) {
+    while ((colProductName.length -1 )>= 0) {
       colProductName.pop();
     }
     var rowCarrello = [];
     var pProdotto = [];
     var colprodotto = [];
+    colImage = [];
     var imgLogo = [];
     var divprodotto = [];
     var elProdotto = document.createElement('DIV');
@@ -226,7 +227,7 @@ function insertProduct() {
       colImage[i].appendChild(imgprodotto[i]);
       colImage[i].appendChild(colProductName[i]);
       colProductName[i].appendChild(imgLogo[i]);
-      $(colprodotto[i]).append('<button class="btn btn-xs btn-primary searched ani" onClick="inCarrello(event,jsonEl);ani();"id="button_aggiungi' + el[i].activity.name + '" data-name="' + el[i].name + '" ><span id="button_font">nel carrello</span></button>');
+      $(colprodotto[i]).append('<button class="btn btn-xs btn-primary searched ani" onClick="inCarrello(event,jsonEl);"id="button_aggiungi' + el[i].activity.name + '" data-name="' + el[i].name + '" ><span id="button_font">nel carrello</span></button>');
 
       
 
@@ -254,7 +255,8 @@ function inCarrello(ev, el) {
   parentChangedSpanText.classList.remove("searched");
   $(parentChangedSpanText).click(function (e) {
     elInCarrello.pop(elClicked)
-    document.getElementById(e.target.id).parentNode.parentElement.remove();
+    
+     document.getElementById(e.target.id).parentNode.remove();
   });
 }
 

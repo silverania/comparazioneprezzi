@@ -5,6 +5,7 @@ body {
 .datacol{
   padding:0;
   margin:0;
+  max-height:122px;
 }
 /* MODAL WINDOWS*/
 .modal {
@@ -155,11 +156,10 @@ img[id^="img_product"] {
 }
 
 img[id^="img_logo"] {
-  width: 40%;
+  /* width: 40%; */
   height: auto;
-  float: none;
-  vertical-align: middle;
-
+  /* float: none; */
+  /* vertical-align: middle; */
 }
 
 div#divForm {
@@ -170,7 +170,7 @@ div#divForm {
   display: inline-block;
     /* margin: 0 auto; */
     padding: 0;
-    width: 20%;
+    width: 40%;
 }
 @media screen and (max-width: 992px) {
   #formSearch{
@@ -204,14 +204,15 @@ p {
   font-size: 0.6rem;
 }
 [id^=button_aggiungi] {
-  margin-left:6px;
   float:left;
+ 
   padding:2px;
 }
 
 @media screen and (max-width: 574px) {
   .searched{
 font-size:0.8rem;
+ margin-bottom:0;
   }
   /*#formsearch{
     width:100%;
