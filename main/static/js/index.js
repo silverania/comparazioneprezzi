@@ -30,6 +30,9 @@ function insertProduct() {
   var colProductName = [];
   var pPrezzo = [];
   var spanPrezzo = [];
+  var pLoTroviQui = [];
+  var pSupermarketName = [];
+  var imgLogo = [];
   
   
   buttonSearch = document.getElementById("buttonSearch");
@@ -163,14 +166,15 @@ function insertProduct() {
     var imgLogo = [];
     var divprodotto = [];
     var elProdotto = document.createElement('DIV');
+    var i = 0;
     
 
-
-    for (i = 0; i < el.length; i++) {
+    for (i ; i < el.length; i++) {
       jsonEl = el[i].pk;
+      var sup = 0;
       //rowCarrello.push(document.createElement("DIV"));
       colprodotto.push(document.createElement("DIV"));
-      imgLogo.push(document.createElement("IMG"));
+      
       divprodotto.push(document.createElement("DIV"));
       imgprodotto.push(document.createElement("IMG"));
       spanProdotto.push(document.createElement("SPAN"));
@@ -179,41 +183,57 @@ function insertProduct() {
       pPrezzo.push(document.createElement("P"));
       colImage.push(document.createElement("DIV"));
       colProductName.push(document.createElement("DIV"));
+      
       elProdotto.setAttribute("class", "row");
       elProdotto.setAttribute("id", "elprodotto");
-      //rowCarrello[i].classList.add("row");
+      elProdotto.classList.add("justify-content-center");
       //rowCarrello[i].classList.add("button_aggiungi");
       //rowCarrello[i].classList.add("justify-content-center");
-      colprodotto[i].id = "col_" + el[i].name + "_" + el[i].activity.name;
+      colprodotto[i].id = "col_" + el[i].name + "_" + el[i].supermercati.name;
       colprodotto[i].classList.add("col-5");
       colprodotto[i].classList.add("datacol");
       colprodotto[i].classList.add("button_aggiungi");
       colprodotto[i].setAttribute("data-price", el[i].prezzo);
       colprodotto[i].setAttribute("data-name", el[i].pk);
       
-      imgLogo[i].id = "img_logo" + el[i].name + "_" + el[i].activity.name;
-      imgLogo[i].setAttribute("data-logo", el[i].pk);
-      pProdotto[i].id = "p_" + el[i].name + "_" + el[i].activity.name;
+      
+      
+      pProdotto[i].id = "p_" + el[i].name + "_" + el[i].supermercati.name;
       //divprodotto[i].classList.add("row");
       //divprodotto[i].width = "auto";
-      //divprodotto[i].id = "div_" + el[i].name + "_" + el[i].activity.name;
-      pPrezzo[i].id = "p_prezzo_" + el[i].prezzo + "_" + el[i].activity.name + "_" + el[i].inOfferta;
+      //divprodotto[i].id = "div_" + el[i].name + "_" + el[i].supermercati.name;
+      pPrezzo[i].id = "p_prezzo_" + el[i].prezzo + "_" + el[i].supermercati.name + "_" + el[i].inOfferta;
       spanPrezzo[i].id = "s_prezzo_" + el[i].prezzo+  "_" + el[i].genere.inOfferta;
-      colImage[i].id = "col_Image_" + el[i].name + "_" + el[i].activity.name;
-      colProductName[i].id = "colProductName_" + el[i].name + "_" + el[i].activity.name;
+      colImage[i].id = "col_Image_" + el[i].name + "_" + el[i].supermercati.name;
+      colProductName[i].id = "colProductName_" + el[i].name + "_" + el[i].supermercati.name;
+      pLoTroviQui[i] = document.createElement("P");
+      //pLoTroviQui[sup] = document.createElement("p");
+      pLoTroviQui[i].innerText = "Lo trovi da ";
+
+      colProductName[i].appendChild(pLoTroviQui[i]);
       imgprodotto[i].setAttribute("alt", "Nessuna immagine !");
       imgprodotto[i].classList.add("img-fluid");
       imgprodotto[i].setAttribute("width", "24px");
       imgprodotto[i].setAttribute("align", "right");
-      imgprodotto[i].id = "img_product_" + el[i].name + "_" + el[i].activity.name;
+      imgprodotto[i].id = "img_product_" + el[i].name + "_" + el[i].supermercati.name;
       imgprodotto[i].src = MEDIAFOLDER + (el[i].image).toString();
 
-      imgLogo[i].setAttribute("alt", "Nessuna immagine !");
-      imgLogo[i].classList.add("img-fluid");
-      imgLogo[i].setAttribute("width", "24px");
-      imgLogo[i].setAttribute("align", "right");
-      imgLogo[i].id = "img_logo_" + el[i].name + "_" + el[i].activity.name;
-      imgLogo[i].src = MEDIAFOLDER + (el[i].activity.imageLogo).toString();
+      
+      for (sup; sup < el[i].supermercati.length; sup++) {
+        pSupermarketName[sup] = document.createElement('P');
+        pSupermarketName[sup].id = el[i].name + "_" + el[i].supermercati[sup].name;
+        pSupermarketName[sup].innerHTML = el[i].supermercati[sup].name;
+        imgLogo[sup] = document.createElement("IMG");
+        imgLogo[sup].setAttribute("alt", "Nessuna immagine !");
+        imgLogo[sup].classList.add("img-fluid");
+        imgLogo[sup].setAttribute("width", "24px");
+        imgLogo[sup].setAttribute("align", "right");
+        imgLogo[sup].id = "img_logo_" + el[i].name;
+        imgLogo[sup].src = MEDIAFOLDER + (el[i].supermercati[sup].imageLogo).toString();
+        imgLogo[sup].setAttribute("data-logo", el[i].pk);
+        colProductName[i].appendChild(imgLogo[sup]); 
+        pLoTroviQui[i].appendChild(pSupermarketName[sup]);
+      }
       pProdotto[i].appendChild(spanProdotto[i]);
       pPrezzo[i].appendChild(spanPrezzo[i]);
       spanProdotto[i].innerText = el[i].name;
@@ -226,10 +246,8 @@ function insertProduct() {
       
       colImage[i].appendChild(imgprodotto[i]);
       colImage[i].appendChild(colProductName[i]);
-      colProductName[i].appendChild(imgLogo[i]);
-      $(colprodotto[i]).append('<button class="btn btn-xs btn-primary searched ani" onClick="inCarrello(event,jsonEl);"id="button_aggiungi' + el[i].activity.name + '" data-name="' + el[i].name + '" ><span id="button_font">nel carrello</span></button>');
-
-      
+      $(colprodotto[i]).append('<button class="btn btn-xs btn-primary searched ani" onClick="inCarrello(event,jsonEl);"id="button_aggiungi' + el[i].supermercati.name + '" data-name="' + el[i].name + '" ><span id="button_font">nel carrello</span></button>');
+     
 
       elProdotto.appendChild(colprodotto[i]);
       colProdotti.appendChild(elProdotto);

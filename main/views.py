@@ -4,7 +4,7 @@ import json
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core import serializers
 from django.views.generic import View
-from .models import Genere, Prodotto,Activity
+from .models import Genere, Prodotto,Activity,Prezzo
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from rest_framework import serializers
@@ -20,11 +20,33 @@ class LazyEncoder(DjangoJSONEncoder):
 
 
 class ActivitySerializer(serializers.ModelSerializer):
-    citta=serializers.CharField(read_only=True)
+    citta = serializers.CharField(max_length=100,)
+    name = serializers.CharField(max_length=100, default="indefinita")
+    strada = serializers.CharField(max_length=100, default="indefinita")
+    prodotto = serializers.StringRelatedField(read_only=True,many=True)
+    telefono = serializers.CharField(
+        max_length=30   )
     imageLogo = serializers.CharField(max_length=200, read_only=True)
     class Meta:
         model = Activity
-        fields = ('__all__')  # put your fields instead of "..."
+        fields = (
+            "name",
+            "citta",
+            "strada",
+            "imageLogo",
+            "prodotto",
+            "telefono",
+        )
+
+
+class PrezzoSerializer(serializers.ModelSerializer):
+    #articolo = serializers.CharField(read_only=True)
+    
+    prezzo= serializers.CharField(max_length=10)
+    activity = ActivitySerializer(read_only=True)
+    class Meta:
+        model = Prezzo
+        fields = ("prodotto","prezzo","activity")  # put your fields instead of "..."
 
 
 class GenereSerializer(serializers.ModelSerializer):
@@ -35,16 +57,16 @@ class GenereSerializer(serializers.ModelSerializer):
 
 
 class ProdottoSerializer(serializers.ModelSerializer):
-    activity=ActivitySerializer(read_only=True)
     name = serializers.CharField(max_length=200,read_only=True)
     genere = GenereSerializer(read_only=True)
     image = serializers.CharField(max_length=200, read_only=True)
-    prezzo = serializers.CharField(read_only=True,max_length=50)
+    prezzo = PrezzoSerializer(many=True)
     inOfferta = serializers.DateField(format="%d/%b/%Y")
     pk = serializers.CharField(read_only=True, max_length=10)
+    supermercati = ActivitySerializer(many=True)
     class Meta:
         model = Prodotto
-        fields = ('name','activity','genere','image','prezzo','inOfferta','pk')
+        fields = ('name','genere','image','prezzo','supermercati','inOfferta','pk')
 
 class homePage(View):
     def get(self, request):
@@ -56,11 +78,13 @@ class homePage(View):
         temp2 = []
         rtemplist = []
         GENERIALIMENTARI = list(Genere.objects.all())
+
         # genereAlJson = serializer(GENERIALIMENTARI)
         if GENERIALIMENTARI:
             objs=[]
             for categoria in Genere.objects.all():
                 temp1=Prodotto.objects.filter()
+                temp2 = Prodotto.objects.all()
                 objs =ProdottoSerializer(temp1,many=True)
                 objs=json.dumps(objs.data,cls=DjangoJSONEncoder)
         else:

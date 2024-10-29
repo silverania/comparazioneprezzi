@@ -40,14 +40,11 @@ class Activity(models.Model):
         max_length=30, default="non disponibile", null=True, blank=True
     )
     imageLogo = models.ImageField(upload_to="media/prodotti/%Y/%m/%d", blank=True)
-    def __obj__(self):
-        return self.name
-
-    def __unicode__(self):
-        return self.name
+    class Meta:
+        ordering = ("name", "strada")
 
     def __str__(self):
-        return f'{self.name}'
+        return self.name
 
 
 class Genere(models.Model):
@@ -67,17 +64,30 @@ class Prodotto(models.Model):
     )
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
+    supermercati = models.ManyToManyField("Activity",related_name="activitys")
     image = models.ImageField(upload_to="media/prodotti/%Y/%m/%d", blank=True)
     descrizione = models.TextField(blank=True)
-    prezzo = models.DecimalField(max_digits=10, decimal_places=2)
     disponibile = models.BooleanField(default=True)
     creato = models.DateTimeField(auto_now_add=True)
     aggiornato = models.DateTimeField(auto_now=True)
     inOfferta = models.DateField(null=True, blank=True)
-    activity = models.ForeignKey("Activity", on_delete=models.CASCADE,blank=True,null=True)
     class Meta:
-        ordering = ("-prezzo", "genere", "descrizione")
-        index_together = (("id", "slug"),)
+        ordering = ( "genere", "descrizione")
+        #index_together = (("id", "slug"),)
 
     def __str__(self):
         return self.name
+
+
+class Prezzo(models.Model):
+    prodotto = models.ForeignKey(Prodotto, on_delete=models.CASCADE,related_name="prezzo")
+    prezzo=models.DecimalField(max_digits=10, decimal_places=2,default="0.00",null=True, blank=True)
+    activity = models.ForeignKey(
+        Activity, related_name="supermarkets", on_delete=models.CASCADE,null=True,blank=True
+    )
+    class Meta:
+        ordering = ("prodotto",)
+        index_together = (("prodotto", "prezzo","activity"),)
+
+    def __str__(self):
+        return str(self.prezzo)

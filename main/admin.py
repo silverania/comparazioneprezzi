@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Genere, Prodotto,Activity
+from .models import Genere, Prodotto,Activity,Prezzo
 from user.models import Profile
 
 
@@ -11,9 +11,14 @@ class CategoryAdmin(admin.ModelAdmin):
     ]
     prepopulated_fields = {"slug": ("name",)}
 
+"""
+class ProductInline(admin.TabularInline):
+    model = Activity
+"""
 
 @admin.register(Prodotto)
 class ProductAdmin(admin.ModelAdmin):
+
     def get_queryset(self, request):
         query = super(ProductAdmin, self).get_queryset(request)
         # filtered_query = ProductAdmin.objects.none()
@@ -23,20 +28,22 @@ class ProductAdmin(admin.ModelAdmin):
         #   filtered_query |= query.filter(site=s)
         #  print(s.title)
         return query
-
+    #inlines = [ProductInline,]
+    fields=["name","supermercati","slug"]
+    filter_horizontal=['supermercati',]
     list_display = [
         "name",
-        "prezzo",
-        "slug",
-        "activity",
         "disponibile",
         "creato",
         "aggiornato",
-       
+        'get_names', 'name',
     ]
-    list_filter = ["disponibile", "activity", "creato", "aggiornato"]
-    list_editable = ["prezzo", "activity", "disponibile"]
+    list_filter = ["disponibile", "creato", "aggiornato"]
+    list_editable = [  "disponibile"]
     prepopulated_fields = {"slug": ("name",)}
+    
+    def get_names(self, obj):
+        return "\n".join([p.name for p in obj.supermercati.all()])
 
 
 @admin.register(Activity)
@@ -58,7 +65,24 @@ class activityAdmin(admin.ModelAdmin):
     ]
     list_filter = ["name", "citta"]
     list_editable = [ "strada","citta"]
+
+
+@admin.register(Prezzo)
+class prezziAdmin(admin.ModelAdmin):
+    def get_queryset(self, request):
+        query = super(prezziAdmin, self).get_queryset(request)
+        # filtered_query = ProductAdmin.objects.none()
+        # profile = Profile.objects.get(user=request.user)
+        # site = Site.objects.filter(user=profile)
+        # for s in site:
+        #   filtered_query |= query.filter(site=s)
+        #  print(s.title)
+        return query
+
+    ##list_display = [
+     #   "prezzo",
+    #]
+    list_filter = ["prodotto","prezzo", "activity"]
     
     def activity_name(self, instance):
         return instance.activity_name
-

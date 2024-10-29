@@ -15,3 +15,4 @@ nell' animnazione checkout(animchist())  devo animare la proprietà color. anima
 - non pulisce dal button ( la funzione di pulizia )  ....devo distruggere el !
 - riga 70 , gli elementi già in carrello non devono essere aggiunti allo schermo
 - -quando rimuovo elemeto dal carrello vengono rimossi tutti
+- controllarele le troppe request per le foto a django sono inutili
