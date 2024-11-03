@@ -1,13 +1,96 @@
+@font-face {
+  font-family: "carterone";
+  src: url("../Fonts/CarterOne-Regular.ttf");
+}
 body {
   min-height: 100vh;
+  height:100vh;
 }
-body {
-  min-width: 100vh;
+.datacol{
+  margin:0;
+}
+p[id^=pproduct]{
+  display:inline-block;
+}
+/* MODAL WINDOWS*/
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-#containerprodotti{
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+/* END*/
+
+span{
+  pointer-events: none;
+}
+
+#root{
+  width:100%;
+  height:auto;
+}
+#root2{
+margin-top:15px;
+}
+.section1{
+  min-width:100%;
+  height: 50%;
+  max-height:50%;
+  position: relative;
+  background-color: #0000ff12;
+  overflow: scroll;
+}
+#divElementsselected{
+  margin:0 auto;
+}
+.section2{
+  background-color: #f0fcff;
+  width:100%;
+  /* top:50%; */
+  /* height:50%; */
+  left:0;
+  position: absolute;
+}
+#colprodotti{
+  position:relative;
+  overflow:scroll;
+  height: 50%;
+  max-height: 50%;
   margin:0;
-   max-width:80%; 
+}
+#elprodotto{
+  position:relative;
+  margin-bottom:3%;
 }
 
 @media screen and (min-width: 1024px) {
@@ -18,7 +101,7 @@ body {
 
 @media screen and (max-width: 1024px) {
   span#sprodotti {
-    font-size: 1rem;
+    font-size: 0.6rem;
   }
 }
 
@@ -33,17 +116,16 @@ span#sprodotti {
 
 #buttonSearch{
   position: relative;
-  left:10px;
+  
+}
+#button_font{
 }
 
 div#div_carrello {
-  position:fixed;
-  display: block;
-  width: inherit;
-  height: 100vh;
   border-left: 3px solid blue;
   background-color: white;
   margin: 0 auto;
+  width:100%;
 }
 
 #colShoppingCart,[id^=checkout]{
@@ -66,13 +148,23 @@ span,p[id^="p_"] {
 
 div[id^="col_Image_"] {
   display: inline-block;
-  width: 100%;
+  width:100%; 
+  max-width: 100%;
   height:auto;
 }
 
 img[id^="img_product"] {
-  width: 100%;
+ width: auto;
+  height: 65px;
+  float: left;
+ /* border:3px solid grey;*/
+}
+
+img[id^="img_logo"] {
+  /* width: 40%; */
   height: auto;
+  /* float: none; */
+  /* vertical-align: middle; */
 }
 
 div#divForm {
@@ -81,14 +173,28 @@ div#divForm {
 
 [id^="colProductName"],#col_Image {
   display: inline-block;
-  margin: 0 auto;
-  padding: 0;
-  width: auto;
+    /* margin: 0 auto; */
+    padding: 0;
+    width: 40%;
 }
 @media screen and (max-width: 992px) {
-  /*#formsearch{
-    width:100%;
-  }*/
+  #formSearch{
+    display:inline-block;
+    /*position:absolute!important;*/
+    z-index:999;
+  }
+  #main_title{
+    /* position:fixed!important; */
+  }
+	  span,
+  p[id^="p_"] {
+    font-size: 0.6em;
+    line-height: 1.2;
+  }
+  #spesatext{font-size:medium;font-weight:bold;width: 100%;}
+.form-control-sm {
+font-size:0.7rem!important;
+}
 }
 
 [id^="p_prezzo"] {
@@ -102,23 +208,54 @@ p {
 #span_aggiungi {
   font-size: 0.6rem;
 }
-#button_aggiungi {
-  display:block;
-  width:fit-content;
-  margin: 0 auto;
+[id^=button_aggiungi] {
+  float:left;
+ 
+  padding:2px;
 }
-
+#search{
+  margin-bottom:4%;
+  overflow: scroll;
+  margin:auto;
+}
 @media screen and (max-width: 574px) {
+  .searched{
+font-size:0.8rem;
+ margin-bottom:0;
+  }
   /*#formsearch{
     width:100%;
   }*/
+    span,
+  span[id^="p_"] {
+    font-size: 0.8em;
+    line-height: 1.2;
+  }
+
+  
   span,
-  p[id^="p_"] {
+  span[id^="s_prezzo"] {
     font-size: 0.8rem;
     line-height: 1;
     margin-bottom: 0;
   }
+  span[id^="mainTitle_"] {
+  font-size:1rem;
+  }
+  span[id^=pproduct]{
+    font-size:0.50em;
+  }
+  table[id^=table_] {
+    font-family: "carterone";
+  width:100px!important;
+  max-width:100px!important;
+  }
+  #spesatext{font-size:medium;font-weight:bold;width: 100%;}
+.form-control-sm {
+font-size:0.7rem!important;
 }
+	
+
 /*.form-control-borderless {
   border: none;
 }*/
@@ -130,12 +267,20 @@ p {
 }*/
 
 @keyframes carrello {
-  0%   {background-color:aqua;}
-  25%  {background-color: yellow;}
+  0%   {background-color:aqua;
+  transform:rotate(0.82rad,.5rad);}
+  25%  {background-color: yellow;
+  transform:rotate(.82rad,.5rad);}
   50%  {background-color:orange;}
-  100% {background-color: whitesmoke;}
+75%{transform:rotate(0.82rad);}
+  100% {background-color: whitesmoke;
+  transform:rotate(0.82rad,.5rad);
+  transform: translateY(-300%);
+}
 }
 .animateme {
   animation-name: carrello;
-  animation-duration: 3s;
+  animation-duration: 2s;
+  font-size: 0.8em!important;
+}
 }

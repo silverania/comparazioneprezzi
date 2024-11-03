@@ -11,10 +11,10 @@ class CategoryAdmin(admin.ModelAdmin):
     ]
     prepopulated_fields = {"slug": ("name",)}
 
-"""
+
 class ProductInline(admin.TabularInline):
-    model = Activity
-"""
+    model = Prezzo
+
 
 @admin.register(Prodotto)
 class ProductAdmin(admin.ModelAdmin):
@@ -28,17 +28,18 @@ class ProductAdmin(admin.ModelAdmin):
         #   filtered_query |= query.filter(site=s)
         #  print(s.title)
         return query
-    #inlines = [ProductInline,]
-    fields=["name","supermercati","slug"]
-    filter_horizontal=['supermercati',]
+    inlines = [ProductInline,]
+    fields=["name","supermercati","image","genere","slug"]
+    filter_horizontal=['supermercati']
     list_display = [
         "name",
+        "genere",
         "disponibile",
         "creato",
         "aggiornato",
         'get_names', 'name',
     ]
-    list_filter = ["disponibile", "creato", "aggiornato"]
+    list_filter = ["disponibile", "creato", "aggiornato","genere"]
     list_editable = [  "disponibile"]
     prepopulated_fields = {"slug": ("name",)}
     
