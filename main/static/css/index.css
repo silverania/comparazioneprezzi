@@ -2,6 +2,10 @@
   font-family: "carterone";
   src: url("../Fonts/CarterOne-Regular.ttf");
 }
+@font-face {
+  font-family: "lilita";
+  src: url("../Fonts/Lilita_One/LilitaOne-Regular.ttf");
+}
 body {
   min-height: 100vh;
   height:100vh;
@@ -15,17 +19,19 @@ body {
   [id^=table_]>tbody > tr > th+td {
     color:green;
   }
+  #mainlogo{
+    margin:0 auto;
+  }
+  #mainlogotext{
+    font-family:lilita;
+  }
 #dscontrino{
   width:100%;
 }
-#bscontrino{
-    display: block;
+#tScontrino{
     margin: 10px auto;
 }
-}
-  .datacol{
-  margin:0;
-}
+
 p[id^=pproduct]{
   display:inline-block;
 }
@@ -76,7 +82,7 @@ span{
   width:100%;
   height:auto;
 }
-#root2{margin-top:15px;margin: 0 auto;}
+#root2{position:relative;margin-top:15px;margin: 0 auto;overflow:scroll;}
 .section1{
   min-width:100%;
   height: 50%;
@@ -92,20 +98,23 @@ span{
   background-color: #f0fcff;
   width:100%;
   /* top:50%; */
-  /* height:50%; */
+  height:50%; 
   left:0;
   position: absolute;
+  overflow:scroll;
 }
 #colprodotti{
   position:relative;
   overflow:scroll;
-  height: 50%;
-  max-height: 50%;
+  height: inherit;
+    max-height: inherit;
   margin:0;
 }
 #elprodotto{
   position:relative;
   margin-bottom:3%;
+   height: inherit;
+    max-height: inherit;
 }
 
 @media screen and (min-width: 1024px) {
@@ -231,6 +240,8 @@ p {
   margin-bottom:4%;
   overflow: scroll;
   margin:auto;
+  height:250px;
+  max-height: 100%;
 }
 @media screen and (max-width: 574px) {
   .searched{
@@ -246,6 +257,9 @@ font-size:0.8rem;
     line-height: 1.2;
   }
 
+  #sscontrino{
+    font-size: 1.5rem;
+  }
   
   span,
   span[id^="s_prezzo"] {

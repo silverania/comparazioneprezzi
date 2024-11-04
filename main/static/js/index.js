@@ -6,7 +6,9 @@ var el = "";
 var elements;
 var prices = [];
 var el2;
-var buttonScontrino,divScontrino,spanscontrino;
+var productsParse;
+var buttonScontrino, divScontrino, spanscontrino;
+const header = tbl.createTHead();
 $(document).ready(function () {
   var posizione = '<ul id="posizione">' +
     '<li>Longitudine: <span id="lon">-</span></li>' +
@@ -24,18 +26,17 @@ $(document).ready(function () {
 
   buttonScontrino = document.createElement("button");
   divScontrino = document.createElement("div");
-  spanscontrino = document.createElement("SPAN"); 
+  spanscontrino = document.createElement("SPAN");
   spanscontrino.id = "sscontrino";
-  spanscontrino.classList.add("badge",  "text-bg-light");
   divScontrino.id = "dscontrino";
-  buttonScontrino.classList.add("btn", "btn-success");
+  buttonScontrino.classList.add("btn", "btn-primary","my-2");
   buttonScontrino.classList.add("me-auto");
   buttonScontrino.id = "bscontrino";
   buttonScontrino.appendChild(spanscontrino);
   divScontrino.appendChild(buttonScontrino);
   var thisnode = document.getElementById('root2');
   thisnode.appendChild(divScontrino);
-  divScontrino.style.visibility="hidden";
+  divScontrino.style.visibility = "hidden";
 
   $(buttonScontrino).click(function (e) {
     modal = document.getElementById("myModal");
@@ -45,48 +46,71 @@ $(document).ready(function () {
     var span = document.getElementsByClassName("close")[0];
     //pModal.innerText = "cazzo";
     tableCreate(elements);
+    simulateHighPrice(elements);
   });
+
+  function simulateHighPrice(elements) {
+    header.innerHTML = '<span class="badge text-bg-info">Dove Andresti Tu ti Costa  : </span>';
+    var z = 0; var c = 0;
+    for (z; z < elements.length; z++) {
+      var nameSearch = elements[z].dataset.name;
+      for (c; c < productsParse.length; c++) {
+        if ( nameSearch===productsParse[c].name) {
+          var highPrice = productsParse[c].prezzo[productsParse[c].prezzo.length - 1].prezzo;
+          var highActivity = productsParse[c].prezzo[productsParse[c].prezzo.length - 1].activity.name;
+          var objData = elements[z].getElementsByTagName("button");
+          objData[0].dataset.price = highPrice;
+          objData[0].dataset.activity = highActivity;
+          break;
+        }
+  }
+    }
+    tableCreate(elements);
+  }
 
   function tableCreate(elements) {
     const flaotPrices = [];
     tbl = document.createElement('table');
-    const header = tbl.createTHead();
+    
     tbl.append(header);
-    tbl.classList.add("table", "table-info", "table-striped");
+    tbl.classList.add("table", "table-warning", "table-striped-columns");
     tbl.setAttribute("id", "tScontrino");
-    tbl.style.width = '200px';
+    //tbl.style.width = '200px';
     tbl.style.border = '1px solid black';
-
+    header.innerHTML = '<span class="badge text-bg-info">dove dico io ti costa : </span>';
     for (let i = 0; i <= (elements.length - 1); i++) {
       var objData = elements[i].getElementsByTagName("button");
-      
-      
-      
+
+
+
       flaotPrices.push(parseFloat(objData[0].dataset.price));
       if (i == elements.length - 1) {
-        
+
         var headerRow = document.createElement("tr");
         var headerCell = document.createElement("th");
+        var headerCell_1 = document.createElement("th");
         var headerCellPrezzo = document.createElement("th");
 
 
         headerRow.append(headerCell);
+        headerRow.append(headerCell_1);
         headerRow.append(headerCellPrezzo);
         header.append(headerRow);
 
         headerCell.textContent = objData[0].dataset.name;
+        headerCell_1.textContent = objData[0].dataset.activity;
         headerCellPrezzo.textContent = objData[0].dataset.price;
 
         headerCell.style.border = '1px solid black';
 
-        
 
-      
-        
+
+
+
         var headerRow2 = document.createElement("tr");
         var headerCell2 = document.createElement("th");
         var headerCellPrezzo2 = document.createElement("th");
-       
+
         header.append(headerRow2);
 
         headerRow2.append(headerCell2);
@@ -97,60 +121,63 @@ $(document).ready(function () {
         headerCell2.textContent = "totale :";
         headerRow2.append(headerCell2);
         headerRow2.append(headerCellPrezzo2);
-       
+
       }
       else {
         var headerRow = document.createElement("tr");
         var headerCell = document.createElement("th");
+        var headerCell_1 = document.createElement("th");
         var headerCellPrezzo = document.createElement("th");
 
 
         headerRow.append(headerCell);
+        headerRow.append(headerCell_1);
         headerRow.append(headerCellPrezzo);
         header.append(headerRow);
         headerCellPrezzo.textContent = parseFloat(objData[0].dataset.price);
 
         headerCell.textContent = objData[0].dataset.name;
+        headerCell_1.textContent = objData[0].dataset.activity;
         headerCellPrezzo.textContent = objData[0].dataset.price;
 
         headerCell.style.border = '1px solid black';
       }
     }
+
+    modalBody.appendChild(tbl);
     
-  modalBody.appendChild(tbl);
   }
-  
+
 
 });
 function insertProduct() {
-   
+
 
   var searchValue;
   var buttonSearch;
   var generiJson;
-  var productsParse;
   var products;
 
   var containersearch;
   var colProdotti;
   var i;
   var extract = [];
- 
+
   var imgprodotto = [];
   var colImage = [];
   var spanProdotto = [];
-  
+
   var colProductName = [];
   var pPrezzo = [];
   var spanPrezzo = [];
   var pLoTroviQui = [];
   var pSupermarketName = [];
   var imgLogo = [];
-  var imgBestPrice=[];
-  var imagefolder='static/images/bestprice.gif';
-  
-  
-  
+  var imgBestPrice = [];
+  var imagefolder = 'static/images/bestprice.gif';
+
+
+
   buttonSearch = document.getElementById("buttonSearch");
   colProdotti = document.getElementById("colprodotti");
   generi = JSON.stringify(generi);
@@ -165,7 +192,7 @@ function insertProduct() {
   }
 
   class Prodotto {
-    constructor(nome, image,imageLogo, descrizione, prezzo, disponibile, creato, aggiornato, inOfferta) {
+    constructor(nome, image, imageLogo, descrizione, prezzo, disponibile, creato, aggiornato, inOfferta) {
       this.nome = nome;
       this.slug = slug;
       this.image = image;
@@ -182,23 +209,23 @@ function insertProduct() {
   buttonSearch.addEventListener("click", function () {
     searchValue = document.getElementById('inputSearch').value;
     extract = [];
-    for (var c = 0; c < productsParse.length; c++) {
+    var c = 0;
+    for (c; c < productsParse.length; c++) {
       if (searchValue !== "")
-        try{
+        try {
           if (productsParse[c].name.toUpperCase().includes(searchValue.toUpperCase())) {
             if (elInCarrello.length != 0) {
-              for (var s = elInCarrello.length -1 ; s >= 0; s--) {
-                
-                  if (productsParse[c].pk != elInCarrello[s].dataset.name) {
-                    if (s == 0) {
-                      extract.push(productsParse[c]);
-                    }
-                    else {
-                      continue;
-                    }
+              var s = elInCarrello.length - 1;
+              for (s; s >= 0; s--) {
+                if (productsParse[c].pk != elInCarrello[s].dataset.name) {
+                  if (s == 0) {
+                    extract.push(productsParse[c]);
                   }
-                
-                
+                  else {
+                    continue;
+                  }
+                }
+                break;
               }
             }
             else {
@@ -206,15 +233,15 @@ function insertProduct() {
             }
 
 
-            
-           
+
+
           }
           else { continue; }
         }
         catch (e) {
           console.log("no il tipo che mi aspetto!");
         }
-        
+
     }
     addElementToScreeen(extract);
   }
@@ -260,15 +287,15 @@ function insertProduct() {
       i++;
     }
   }
-  
-  
+
+
   function ani() {
     document.getElementById('img').className = 'classname';
   }
   function ani() {
     document.getElementById('button').className = 'ani';
   }
-  
+
   function addElementToScreeen(el) {
     var e = document.getElementById('colprodotti'); // cancello ricerca precedente 
     e.innerHTML = "";
@@ -278,7 +305,7 @@ function insertProduct() {
     while ((buttons.length - 1) >= 0) {
       buttons.pop();
     }
-    while ((colProductName.length -1 )>= 0) {
+    while ((colProductName.length - 1) >= 0) {
       colProductName.pop();
     }
     var rowCarrello = [];
@@ -289,24 +316,24 @@ function insertProduct() {
     var divprodotto = [];
     var elProdotto = document.createElement('DIV');
     var i = 0;
-    
-    
 
-    for (i ; i < el.length; i++) {
+
+
+    for (i; i < el.length; i++) {
       var sup = 0;
       //rowCarrello.push(document.createElement("DIV"));
       colprodotto.push(document.createElement("DIV"));
-      
+
       divprodotto.push(document.createElement("DIV"));
       imgprodotto.push(document.createElement("IMG"));
-      imgBestPrice[i]=document.createElement("IMG");
+      imgBestPrice[i] = document.createElement("IMG");
       spanProdotto.push(document.createElement("SPAN"));
-     
+
       pProdotto.push(document.createElement("span"));
       pPrezzo.push(document.createElement("span"));
       colImage.push(document.createElement("DIV"));
       colProductName.push(document.createElement("DIV"));
-      
+
       elProdotto.setAttribute("class", "row");
       elProdotto.setAttribute("id", "elprodotto");
       elProdotto.classList.add("justify-content-center");
@@ -314,24 +341,25 @@ function insertProduct() {
       //rowCarrello[i].classList.add("justify-content-center");
       colprodotto[i].id = "col_" + el[i].name + "_" + el[i].supermercati.name;
       colprodotto[i].classList.add("col-6");
-      colprodotto[i].classList.add("datacol", "col-auto","my-2","align-self-end");
+      colprodotto[i].classList.add("datacol", "col-auto", "my-2", "align-self-end");
       colprodotto[i].classList.add("button_aggiungi");
-      colprodotto[i].setAttribute("data-name", el[i].pk);
-      
-      
-      
-      pProdotto[i].id =  el[i].name + "_" + el[i].supermercati.name;
+      colprodotto[i].setAttribute("data-pk", el[i].pk);
+      colprodotto[i].setAttribute("data-name", el[i].name);
+
+
+
+      pProdotto[i].id = el[i].name + "_" + el[i].supermercati.name;
       //divprodotto[i].classList.add("row");
       //divprodotto[i].width = "auto";
       //divprodotto[i].id = "div_" + el[i].name + "_" + el[i].supermercati.name;
-     
+
       colImage[i].id = "col_Image_" + el[i].name + "_" + el[i].supermercati.name;
       colProductName[i].id = "colProductName_" + el[i].name + "_" + el[i].supermercati.name;
       pLoTroviQui[i] = document.createElement("P");
       pLoTroviQui[i].id = "p_lotrovida";
       pLoTroviQui[i].classList.add("badge", "text-bg-light");
       //pLoTroviQui[sup] = document.createElement("p");
-      
+
 
       colProductName[i].appendChild(pLoTroviQui[i]);
       imgprodotto[i].setAttribute("alt", "Nessuna immagine !");
@@ -347,22 +375,22 @@ function insertProduct() {
       imgBestPrice[i].src = imagefolder;
       var lowest = checkLowestPrice(el[i]); // alimento con prezzo piu basso
       colprodotto[i].setAttribute("data-price", lowest.prezzo);
-      activityOptions ='<table id="table_'+ el[i].name +'_'+lowest.activity.name+"\"" + 'class="table-light-sm">'+
-        '<tbody><tr><th scope="row"><span class="badge text-bg-secondary">' + lowest.activity.name + '</span>'+
-        '</th ><td>$'+lowest.prezzo+'</td></tr > ' +
+      activityOptions = '<table id="table_' + el[i].name + '_' + lowest.activity.name + "\"" + 'class="table-light-sm">' +
+        '<tbody><tr><th scope="row"><span class="badge text-bg-secondary">' + lowest.activity.name + '</span>' +
+        '</th ><td>$' + lowest.prezzo + '</td></tr > ' +
         '</tbody>' +
         '</table>';
-        
-       
+
+
 
       for (sup; sup < el[i].supermercati.length; sup++) {
         var thisPk = el[i].pk.toString();
         pSupermarketName[sup] = document.createElement('span');
-        pSupermarketName[sup].classList.add("badge","bg-info");
-        pSupermarketName[sup].id = "pproduct_"+el[i].name + "_" + el[i].supermercati[sup].name;
+        pSupermarketName[sup].classList.add("badge", "bg-info");
+        pSupermarketName[sup].id = "pproduct_" + el[i].name + "_" + el[i].supermercati[sup].name;
         pSupermarketName[sup].innerHTML = el[i].supermercati[sup].name;
         imgLogo[sup] = document.createElement("IMG");
-       
+
         imgLogo[sup].setAttribute("alt", "Nessuna immagine !");
         imgLogo[sup].classList.add("img-fluid");
         imgLogo[sup].setAttribute("width", "24px");
@@ -371,69 +399,70 @@ function insertProduct() {
         imgLogo[sup].src = MEDIAFOLDER + (el[i].supermercati[sup].imageLogo).toString();
         imgLogo[sup].setAttribute("data-logo", el[i].pk);
 
-       
-        
+
+
         for (var pindex = 0; (el[i].prezzo.length - 1) >= pindex; pindex++) {
           if (el[i].prezzo[pindex].activity === null) continue;
           if (el[i].prezzo[pindex].prodotto.toString() === thisPk) {
             spanPrezzo[pindex] = document.createElement("SPAN");
             var dataProdotto = lowest[0].name;
-            var dataActivity= lowest.activity.name;
+            var dataActivity = lowest.activity.name;
             var dataPrice = lowest.prezzo;
             var dataStrada = lowest.activity.strada
             spanPrezzo[pindex].innerText = el[i].prezzo[pindex].prezzo + " euro";
             pPrezzo[i].id = "pproduct" + el[i].prezzo[pindex].prezzo + "_" + el[i].prezzo[pindex].activity.name;
           }
         }
-        pSupermarketName[sup].appendChild(spanPrezzo[pindex-1]);
-        pLoTroviQui[i].appendChild(imgLogo[sup]); 
+        pSupermarketName[sup].appendChild(spanPrezzo[pindex - 1]);
+        pLoTroviQui[i].appendChild(imgLogo[sup]);
         pLoTroviQui[i].innerText = lowest.activity.strada;
         //colProductName[i].appendChild(pSupermarketName[sup]);
         colProductName[i].appendChild(imgBestPrice[i]);
         $(colImage[i]).append(activityOptions);
-        
+
         break;
       }
       colprodotto[i].appendChild(spanProdotto[i]);
-      
+
       spanProdotto[i].innerText = el[i].name;
       spanProdotto[i].id = "mainTitle_" + el[i].name;
       spanProdotto[i].classList.add("badge", "text-bg-light");
       spanProdotto[i].style.marginTop = "0";
       colProductName[i].appendChild(pProdotto[i]);
-      
+
 
       colprodotto[i].appendChild(colImage[i]);
       el2 = el[i];
       colImage[i].appendChild(imgprodotto[i]);
       colImage[i].appendChild(colProductName[i]);
-      $(colprodotto[i]).append('<button class="btn btn-xs btn-success searched ani" onClick="elements=inCarrello(event,el2);' +
+      $(colprodotto[i]).append('<button class="btn btn-xs btn-warning searched ani" onClick="elements=inCarrello(event,el2);' +
         '"id="button_aggiungi' + lowest.activity.name +
-        '" data-name="' + el[i].name + '" data-prodotto="' + dataProdotto + '" data-price="' + dataPrice +'" data-activity="'+dataActivity + '" data-strada="' +dataStrada + '"" ><span id="button_font">nel carrello</span></button>');
-     
+        '" data-name="' + el[i].name + '" data-prodotto="' + dataProdotto + '" data-price="' + dataPrice + '" data-activity="' + dataActivity + '" data-strada="' + dataStrada + '"" ><span id="button_font">nel carrello</span></button>');
+
 
       elProdotto.appendChild(colprodotto[i]);
       colProdotti.appendChild(elProdotto);
     }
-   
+
   }
 
 
 }
 function inCarrello(ev) {
   buttonScontrino.style.visibility = "visible";
+
   var id = null;
   document.getElementById(ev.target.id).style.transform = "rotate(-2deg)";
   var elClicked = document.getElementById(ev.target.id).closest(".datacol").cloneNode(true);
   var butClicked = document.getElementById(ev.target.id).closest(".searched").disabled = true;
   elClicked.setAttribute("id", "elcloned_" + ev.target.id);
   elInCarrello.push(elClicked);
-  spanscontrino.innerText = "fai lo scontrino per "+elInCarrello.length+ " prodotto";
   root2.appendChild(elClicked);
-  
+  elements = elInCarrello;
+  spanscontrino.innerText = "Fai lo Scontrino X " + elInCarrello.length + " Prodotti";
   var changedSpanText = document.getElementById('root2');
   var parentChangedSpanText = elClicked.getElementsByTagName("BUTTON")[0];
-  parentChangedSpanText.setAttribute("id","elcloned_for_element_"+ev.target.id)
+  parentChangedSpanText.setAttribute("id", "elcloned_for_element_" + ev.target.id)
   parentChangedSpanText.innerText = "togli";
   parentChangedSpanText.removeAttribute("onClick");
   parentChangedSpanText.classList.add("animateme");
@@ -442,24 +471,28 @@ function inCarrello(ev) {
     var pos = 0;
     clearInterval(id);
     id = setInterval(frame, 1);
+    elInCarrello = elInCarrello.filter(function (elInCarrell) {
+      return elInCarrell.id != elClicked.id;
+    }); elements = elInCarrello;
+    spanscontrino.innerText = "fai lo scontrino per " + elInCarrello.length + " prodotto";
     function frame() {
       if (pos == -350) {
         clearInterval(id);
-        elInCarrello.pop(elClicked);
+
         document.getElementById(e.target.id).parentNode.remove();
       } else {
         pos--;
-        parentChangedSpanText.style.position = "relative"; 
+        parentChangedSpanText.style.position = "relative";
         parentChangedSpanText.style.bottom = pos + 'px';
         parentChangedSpanText.style.left = pos + 'px';
       }
     }
-    
+
     document.getElementById(ev.target.id).closest(".searched").disabled = false;
-    
+
   })
-  return elInCarrello;
-  
+  return elements;
+
 }
 
 
