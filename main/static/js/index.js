@@ -8,7 +8,7 @@ var prices = [];
 var el2;
 var productsParse;
 var buttonScontrino, divScontrino, spanscontrino;
-const header = tbl.createTHead();
+var fulllist = [];
 $(document).ready(function () {
   var posizione = '<ul id="posizione">' +
     '<li>Longitudine: <span id="lon">-</span></li>' +
@@ -45,39 +45,51 @@ $(document).ready(function () {
     var modalBody = document.getElementById("modalBody");
     var span = document.getElementsByClassName("close")[0];
     //pModal.innerText = "cazzo";
-    tableCreate(elements);
     simulateHighPrice(elements);
   });
-
+$('#bscontrino').hover(function(){
+  this.style.backgroundColor = "white";
+}, function () {
+  this.style.backgroundColor="green";
+});
   function simulateHighPrice(elements) {
-    header.innerHTML = '<span class="badge text-bg-info">Dove Andresti Tu ti Costa  : </span>';
-    var z = 0; var c = 0;
-    for (z; z < elements.length; z++) {
-      var nameSearch = elements[z].dataset.name;
+    tableCreate(elements,"se vai dove dico paghi :");
+    var elementsClone = elements;
+    var z = 0; var c = 0; var j = 0;
+    for (z; z < elementsClone.length; z++) {
+      var nameSearch = elementsClone[z].dataset.name;
       for (c; c < productsParse.length; c++) {
         if ( nameSearch===productsParse[c].name) {
           var highPrice = productsParse[c].prezzo[productsParse[c].prezzo.length - 1].prezzo;
           var highActivity = productsParse[c].prezzo[productsParse[c].prezzo.length - 1].activity.name;
-          var objData = elements[z].getElementsByTagName("button");
-          objData[0].dataset.price = highPrice;
+          j = 0;
+          while (j <= productsParse[c].prezzo.length - 1) {
+            if (productsParse[c].prezzo[j].prezzo!="0.00"){
+              fulllist.push(productsParse[c].prezzo[j])
+            }
+            j++;
+          }
+          var objData = elementsClone[z].getElementsByTagName("button");
+          objData[0].dataset.price = parseFloat(highPrice).toPrecision(3);
           objData[0].dataset.activity = highActivity;
+          c = 0;
           break;
         }
   }
     }
-    tableCreate(elements);
+    tableCreate(elementsClone,"se vai dove dici tu paghi :");
   }
 
-  function tableCreate(elements) {
+  function tableCreate(elements,headtext) {
     const flaotPrices = [];
     tbl = document.createElement('table');
-    
+    const header = tbl.createTHead();
     tbl.append(header);
     tbl.classList.add("table", "table-warning", "table-striped-columns");
     tbl.setAttribute("id", "tScontrino");
     //tbl.style.width = '200px';
     tbl.style.border = '1px solid black';
-    header.innerHTML = '<span class="badge text-bg-info">dove dico io ti costa : </span>';
+    header.innerHTML = '<span class="badge text-bg-info">'+headtext+' </span>';
     for (let i = 0; i <= (elements.length - 1); i++) {
       var objData = elements[i].getElementsByTagName("button");
 
@@ -98,8 +110,8 @@ $(document).ready(function () {
         header.append(headerRow);
 
         headerCell.textContent = objData[0].dataset.name;
-        headerCell_1.textContent = objData[0].dataset.activity;
-        headerCellPrezzo.textContent = objData[0].dataset.price;
+        headerCell_1.textContent = objData[0].dataset.activity +" "+ objData[0].dataset.strada;
+        headerCellPrezzo.textContent = parseFloat(objData[0].dataset.price).toPrecision(3);
 
         headerCell.style.border = '1px solid black';
 
@@ -134,10 +146,10 @@ $(document).ready(function () {
         headerRow.append(headerCell_1);
         headerRow.append(headerCellPrezzo);
         header.append(headerRow);
-        headerCellPrezzo.textContent = parseFloat(objData[0].dataset.price);
+        headerCellPrezzo.textContent = parseFloat(objData[0].dataset.price).toPrecision(3);
 
         headerCell.textContent = objData[0].dataset.name;
-        headerCell_1.textContent = objData[0].dataset.activity;
+        headerCell_1.textContent = objData[0].dataset.activity+ " " +objData[0].dataset.strada;
         headerCellPrezzo.textContent = objData[0].dataset.price;
 
         headerCell.style.border = '1px solid black';
@@ -145,7 +157,6 @@ $(document).ready(function () {
     }
 
     modalBody.appendChild(tbl);
-    
   }
 
 
@@ -207,6 +218,22 @@ function insertProduct() {
   }
 
   buttonSearch.addEventListener("click", function () {
+    buttonSearch.classList.add('clickbut');
+    var id = null;
+    var pos = 0;
+    clearInterval(id);
+    id = setInterval(frame, 1);
+    function frame() {
+      if (pos == 500) {
+        clearInterval(id);
+        buttonSearch.classList.remove('clickbut');
+      } else {
+        pos++;
+        
+      }
+    }
+
+
     searchValue = document.getElementById('inputSearch').value;
     extract = [];
     var c = 0;
@@ -217,7 +244,7 @@ function insertProduct() {
             if (elInCarrello.length != 0) {
               var s = elInCarrello.length - 1;
               for (s; s >= 0; s--) {
-                if (productsParse[c].pk != elInCarrello[s].dataset.name) {
+                if (productsParse[c].name != elInCarrello[s].dataset.name) {
                   if (s == 0) {
                     extract.push(productsParse[c]);
                   }
@@ -244,6 +271,7 @@ function insertProduct() {
 
     }
     addElementToScreeen(extract);
+    
   }
   );
 
@@ -297,6 +325,7 @@ function insertProduct() {
   }
 
   function addElementToScreeen(el) {
+    
     var e = document.getElementById('colprodotti'); // cancello ricerca precedente 
     e.innerHTML = "";
     var buttons = document.getElementsByClassName("searched");
@@ -336,12 +365,12 @@ function insertProduct() {
 
       elProdotto.setAttribute("class", "row");
       elProdotto.setAttribute("id", "elprodotto");
-      elProdotto.classList.add("justify-content-center");
+      elProdotto.classList.add("justify-content-left");
       //rowCarrello[i].classList.add("button_aggiungi");
       //rowCarrello[i].classList.add("justify-content-center");
       colprodotto[i].id = "col_" + el[i].name + "_" + el[i].supermercati.name;
       colprodotto[i].classList.add("col-6");
-      colprodotto[i].classList.add("datacol", "col-auto", "my-2", "align-self-end");
+      colprodotto[i].classList.add("datacol", "col-auto", "my-2", "align-top","text-center");
       colprodotto[i].classList.add("button_aggiungi");
       colprodotto[i].setAttribute("data-pk", el[i].pk);
       colprodotto[i].setAttribute("data-name", el[i].name);
@@ -408,7 +437,8 @@ function insertProduct() {
             var dataProdotto = lowest[0].name;
             var dataActivity = lowest.activity.name;
             var dataPrice = lowest.prezzo;
-            var dataStrada = lowest.activity.strada
+            var dataStrada = lowest.activity.strada;
+            var dataPK = lowest[0].pk;
             spanPrezzo[pindex].innerText = el[i].prezzo[pindex].prezzo + " euro";
             pPrezzo[i].id = "pproduct" + el[i].prezzo[pindex].prezzo + "_" + el[i].prezzo[pindex].activity.name;
           }
@@ -435,9 +465,9 @@ function insertProduct() {
       el2 = el[i];
       colImage[i].appendChild(imgprodotto[i]);
       colImage[i].appendChild(colProductName[i]);
-      $(colprodotto[i]).append('<button class="btn btn-xs btn-warning searched ani" onClick="elements=inCarrello(event,el2);' +
-        '"id="button_aggiungi' + lowest.activity.name +
-        '" data-name="' + el[i].name + '" data-prodotto="' + dataProdotto + '" data-price="' + dataPrice + '" data-activity="' + dataActivity + '" data-strada="' + dataStrada + '"" ><span id="button_font">nel carrello</span></button>');
+      $(colprodotto[i]).append('<button class="btn btn-sm btn-warning searched ani" onClick="elements=inCarrello(event,el2);' +
+        '"id="button_aggiungi_' + dataPK + dataProdotto +
+        '" data-name="' + dataProdotto + '" data-prodotto="' + dataProdotto + '" data-price="' + dataPrice + '" data-activity="' + dataActivity + '" data-strada="' + dataStrada + '"" ><span id="button_font">nel carrello</span></button>');
 
 
       elProdotto.appendChild(colprodotto[i]);
@@ -452,7 +482,22 @@ function inCarrello(ev) {
   buttonScontrino.style.visibility = "visible";
 
   var id = null;
-  document.getElementById(ev.target.id).style.transform = "rotate(-2deg)";
+  document.getElementById(ev.target.id).style.transform = "rotate(-3deg)";
+  document.getElementById(ev.target.id).classList.add('clickbut');
+  var id = null;
+  var pos = 0;
+  clearInterval(id);
+  id = setInterval(frame, 1);
+  function frame() {
+    if (pos == 500) {
+      clearInterval(id);
+      document.getElementById(ev.target.id).classList.remove('clickbut');
+    } else {
+      pos++;
+
+    }
+  }
+
   var elClicked = document.getElementById(ev.target.id).closest(".datacol").cloneNode(true);
   var butClicked = document.getElementById(ev.target.id).closest(".searched").disabled = true;
   elClicked.setAttribute("id", "elcloned_" + ev.target.id);

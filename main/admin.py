@@ -29,11 +29,10 @@ class ProductAdmin(admin.ModelAdmin):
         #  print(s.title)
         return query
     inlines = [ProductInline,]
-    fields=["name","supermercati","image","genere","slug"]
-    filter_horizontal=['supermercati']
+    fields=["name","supermercati","image","genere","slug","inOfferta"]
+    filter_horizontal=['supermercati','genere']
     list_display = [
         "name",
-        "genere",
         "disponibile",
         "creato",
         "aggiornato",

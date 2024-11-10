@@ -35,7 +35,6 @@
 
    
     
-      
         <div id="search" class="row">
       <div class="col-xs-12 col-md-12 text-center" id="colprodotti">
         <span id="sprodotti" class="badge bg-light"></span>
@@ -43,27 +42,23 @@
         <div class="row" id="rowprodotti"></div>
       </div>
     </div>
-        <div  id="colCarrello">
-        </div>
+      </div>  
   
 
   
-
-  <div class="section2 ">
+<div class="container-fluid">
+  <div class="row section2 ">
     
-    <div id="root">
-    </div>
-          <div id="div_carrello">
-            
-              <div class="row" id="rowCarrello">
-                <div class="col" id="colCarrello2">
+   
+          
+              
                                
-                <div class="col" id="colShoppingCart"><span id="spesatext" class="badge bg-info" >Il Tuo Carrello<i class="fad fa-2x fa-shopping-cart"></i>  
+                <div class="col-12" id="colShoppingCart"><span id="spesatext" class="badge bg-info" >Il Tuo Carrello<i class="fad fa-2x fa-shopping-cart"></i>  
 
                 </span>
                 </div>
-              </div>
-              </div>
+              
+             
               <div class="row" id="root2">
 
 
@@ -71,7 +66,7 @@
                 
               </div>
             
-          </div>
+         
           <script>
                 if (Modernizr.geolocation) {
                     navigator.geolocation.getCurrentPosition(geolocalizzami);
@@ -86,7 +81,7 @@
   
  
   </div>
-  
+</div>
   <script>
     var generi = '{{ data|escapejs }}';
     insertProduct()
@@ -119,8 +114,8 @@
             modal.style.display = "none";
         }}
       </script>
+    </div>
 
-</div>
 
   
 

@@ -78,6 +78,10 @@ span{
   pointer-events: none;
 }
 
+#rowCarrello{
+  position:static;
+}
+
 #root{
   width:100%;
   height:auto;
@@ -94,22 +98,33 @@ span{
 #divElementsselected{
   margin:0 auto;
 }
+#bscontrino{
+  position:static;
+}
+#buttonSearch{
+  position: relative;
+  
+}
 .section2{
   background-color: #f0fcff;
-  width:100%;
+  width:100%; 
   /* top:50%; */
-  height:50%; 
-  left:0;
+  height:50%;
+  
   position: absolute;
-  overflow:scroll;
 }
 #colprodotti{
   position:relative;
-  overflow:scroll;
+  overflow-y: scroll;
   height: inherit;
-    max-height: inherit;
+  max-height: inherit;
   margin:0;
 }
+ #formSearch{
+    display:inline-block;
+    /*position:absolute!important;*/
+    z-index:999;
+  }
 #elprodotto{
   position:relative;
   margin-bottom:3%;
@@ -135,18 +150,16 @@ span#sprodotti {
 }
 
 #colCarrello{
-  width:31vw;
+  /* width:31vw; */
 }
 
-#buttonSearch{
-  position: relative;
-  
-}
+
 #button_font{
 }
 
 div#div_carrello {
   background-color: white;
+  position:relative;
   margin: 0 auto;
   width:100%;
 }
@@ -166,13 +179,14 @@ div#div_carrello {
 span,p[id^="p_"] {
   font-size: 0.8rem;
   line-height: 1;
+  FLOAT: left;
   margin-bottom: 0;
 }
 
 div[id^="col_Image_"] {
   display: inline-block;
-  width:100%; 
-  max-width: 100%;
+  //width:100%;
+  //max-width: 100%;
   height:auto;
 }
 
@@ -198,6 +212,7 @@ div#divForm {
   display: inline-block;
     /* margin: 0 auto; */
     padding: 0;
+    float:inline-start;
     width: 40%;
 }
 @media screen and (max-width: 992px) {
@@ -236,15 +251,21 @@ p {
  
   padding:2px;
 }
-#search{
+#search,#section2{
   margin-bottom:4%;
-  overflow: scroll;
+  /* overflow: scroll; */
   margin:auto;
-  height:250px;
-  max-height: 100%;
+   height:250px; 
+  /* max-height: 100%; */
 }
 @media screen and (max-width: 574px) {
-  .searched{
+ #root2 {
+  position:relative;
+  height:400px;
+  margin-top:15px;margin: 0 auto;overflow:scroll;
+}
+
+.searched{
 font-size:0.8rem;
  margin-bottom:0;
   }
@@ -278,7 +299,10 @@ font-size:0.8rem;
   width:100px!important;
   max-width:100px!important;
   }
-  #spesatext{font-size:medium;font-weight:bold;width: 100%;}
+  td,th,tr{
+    font-size:0.9rem;
+  }
+  #spesatext{font-size:medium;font-weight:bold;display: block;width: 100%;}
 .form-control-sm {
 font-size:0.7rem!important;
 }
@@ -303,7 +327,7 @@ font-size:0.7rem!important;
 75%{transform:rotate(0.82rad);}
   100% {background-color: whitesmoke;
   transform:rotate(0.82rad,.5rad);
-  transform: translateY(-300%);
+  transform: translateY(-900%);
 }
 }
 .animateme {
@@ -330,4 +354,28 @@ font-size:0.7rem!important;
   animation-duration: 3s;
   font-size: 0.8em!important;
 }
+}
+
+.animateme {
+  animation-name: carrello;
+  animation-duration: 2s;
+  font-size: 0.8em!important;
+}
+
+
+@keyframes scalebut {
+  0%   {background-color:aqua;
+  transform:scale(1.4);}
+  25%  {background-color: yellow;
+transform:scale(1.4);}
+  50%  {background-color:rgba(4, 0, 255, 0.991);}
+75%{transform:scale(1.4);}
+  100% {background-color: whitesmoke;
+  transform:scale(2);
+}
+}
+.clickbut {
+  animation-name: scalebut;
+  animation-duration: 0.3s;
+  
 }

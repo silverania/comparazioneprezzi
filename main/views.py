@@ -51,9 +51,12 @@ class PrezzoSerializer(serializers.ModelSerializer):
 
 class GenereSerializer(serializers.ModelSerializer):
     # citta=serializers.CharField(read_only=True)
+    name = serializers.CharField(max_length=200)
+    #slug = serializers.SlugField(max_length=200)
+
     class Meta:
         model = Genere
-        fields = "__all__"  # put your fields instead of "..."
+        fields = ("name",)  # put your fields instead of "..."
 
 
 class ProdottoSerializer(serializers.ModelSerializer):

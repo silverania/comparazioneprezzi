@@ -49,18 +49,18 @@ class Activity(models.Model):
 
 class Genere(models.Model):
     name = models.CharField(max_length=200, db_index=True)
-    slug = models.SlugField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200)
 
     class Meta:
-        ordering = ("name", "slug")
+        ordering = ("name",)
 
     def __str__(self):
         return self.name
 
 
 class Prodotto(models.Model):
-    genere = models.ForeignKey(
-        Genere, related_name="prodotti", on_delete=models.CASCADE
+    genere = models.ManyToManyField(Genere
+        , related_name="prodotti"
     )
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
@@ -72,7 +72,7 @@ class Prodotto(models.Model):
     aggiornato = models.DateTimeField(auto_now=True)
     inOfferta = models.DateField(null=True, blank=True)
     class Meta:
-        ordering = ( "genere", "descrizione")
+        ordering = ("creato",)
         #index_together = (("id", "slug"),)
 
     def __str__(self):
