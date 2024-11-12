@@ -3,6 +3,10 @@
   src: url("../Fonts/CarterOne-Regular.ttf");
 }
 @font-face {
+  font-family: "Roboto";
+  src: url("../Fonts/Roboto-Black.ttf");
+}
+@font-face {
   font-family: "lilita";
   src: url("../Fonts/Lilita_One/LilitaOne-Regular.ttf");
 }
@@ -19,6 +23,9 @@ body {
   [id^=table_]>tbody > tr > th+td {
     color:green;
   }
+  .sActivityName{
+    font-family: Roboto;
+  }
   #mainlogo{
     margin:0 auto;
   }
@@ -31,7 +38,9 @@ body {
 #tScontrino{
     margin: 10px auto;
 }
-
+.datacol{
+  margin-bottom: 30px;
+}
 p[id^=pproduct]{
   display:inline-block;
 }
@@ -210,10 +219,10 @@ div#divForm {
 
 [id^="colProductName"],#col_Image {
   display: inline-block;
-    /* margin: 0 auto; */
-    padding: 0;
-    float:inline-start;
-    width: 40%;
+  /* margin: 0 auto; */
+  padding: 0;
+  float:inline-start;
+  width: 60%;
 }
 @media screen and (max-width: 992px) {
   #formSearch{
@@ -247,15 +256,14 @@ p {
   font-size: 0.6rem;
 }
 [id^=button_aggiungi] {
-  float:left;
- 
+  /* float:left; */
   padding:2px;
 }
 #search,#section2{
   margin-bottom:4%;
   /* overflow: scroll; */
   margin:auto;
-   height:250px; 
+  height: 380px;
   /* max-height: 100%; */
 }
 @media screen and (max-width: 574px) {
@@ -288,7 +296,10 @@ font-size:0.8rem;
     line-height: 1;
     margin-bottom: 0;
   }
-  span[id^="mainTitle_"] {
+  p[id^="mainTitle_"] {
+    width:100%;
+    text-overflow:unset;
+    overflow:scroll;
   font-size:1rem;
   }
   span[id^=pproduct]{
@@ -296,8 +307,9 @@ font-size:0.8rem;
   }
   [id^=table_] {
     font-family: "carterone";
-  width:100px!important;
-  max-width:100px!important;
+    width:100px!important;
+    max-width:100px!important;
+    margin: 0 auto;
   }
   td,th,tr{
     font-size:0.9rem;
@@ -333,9 +345,12 @@ font-size:0.7rem!important;
 .animateme {
   animation-name: carrello;
   animation-duration: 2s;
-  font-size: 0.8em!important;
 }
-
+[id^=info].badge.text-bg-light.info{
+  font-size: 0.8em!important;
+  pointer-events: all;
+  z-index:999;
+}
 
 @keyframes toglicarrello {
   0%   {background-color:aqua;

@@ -14,7 +14,7 @@ $(document).ready(function () {
 
     // When the user clicks on <span> (x), close the modal
     span.onclick = function () {
-        let e =document.getElementsByTagName('table');$(e).remove()
+        //let e =document.getElementsByTagName('table');$(e).remove()
         modal.style.display = "none";
     }
 

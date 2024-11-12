@@ -16,3 +16,4 @@ nell' animnazione checkout(animchist())  devo animare la proprietà color. anima
 - riga 70 , gli elementi già in carrello non devono essere aggiunti allo schermo
 - -quando rimuovo elemeto dal carrello vengono rimossi tutti
 - controllarele le troppe request per le foto a django sono inutili
+- devi prendere prezzi alti dopo il click su + 
