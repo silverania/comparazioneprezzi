@@ -41,7 +41,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ["disponibile", "creato", "aggiornato","genere"]
     list_editable = [  "disponibile"]
     prepopulated_fields = {"slug": ("name",)}
-    
+    search_fields = ['name',]
     def get_names(self, obj):
         return "\n".join([p.name for p in obj.supermercati.all()])
 

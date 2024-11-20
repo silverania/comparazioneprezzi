@@ -85,11 +85,10 @@ class homePage(View):
         # genereAlJson = serializer(GENERIALIMENTARI)
         if GENERIALIMENTARI:
             objs=[]
-            for categoria in Genere.objects.all():
-                temp1=Prodotto.objects.filter()
-                temp2 = Prodotto.objects.all()
-                objs =ProdottoSerializer(temp1,many=True)
-                objs=json.dumps(objs.data,cls=DjangoJSONEncoder)
+            temp1=Prodotto.objects.filter()
+                #temp2 = Prodotto.objects.all()
+            objs =ProdottoSerializer(temp1,many=True)
+            objs=json.dumps(objs.data,cls=DjangoJSONEncoder)
         else:
             return HttpResponse("Non ho trovato prodotti !!")
         return render(request, template, {'data': objs})

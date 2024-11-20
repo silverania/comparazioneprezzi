@@ -80,10 +80,10 @@ class Prodotto(models.Model):
 
 
 class Prezzo(models.Model):
-    prodotto = models.ForeignKey(Prodotto, on_delete=models.CASCADE,related_name="prezzo")
-    prezzo=models.DecimalField(max_digits=10, decimal_places=2,default="0.00",null=True, blank=True)
+    prodotto = models.ForeignKey(Prodotto, on_delete=models.CASCADE,related_name="prezzo",null=True,blank=True)
+    prezzo=models.DecimalField(max_digits=10, decimal_places=2,default="0.00")
     activity = models.ForeignKey(
-        Activity, related_name="supermarkets", on_delete=models.CASCADE,null=True,blank=True
+        Activity, related_name="supermarkets", on_delete=models.CASCADE,null=True, blank=True
     )
     class Meta:
         ordering = ("prodotto",)

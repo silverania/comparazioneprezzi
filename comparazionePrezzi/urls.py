@@ -19,7 +19,9 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from main import views
 
-
+admin.site.site_title = "Iena"
+admin.site.site_header = "Iena"
+admin.site.index_title = "Iena Admin"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),

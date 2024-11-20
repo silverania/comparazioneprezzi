@@ -12,9 +12,16 @@ $(document).ready(function () {
         modal.style.display = "block";
     }*/
 
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
+    // When the user clicon <span> (x), close the modal
+    document.getElementsByClassName('close')[0].onclick = function () {
         //let e =document.getElementsByTagName('table');$(e).remove()
+        
+        var tables = modal.getElementsByTagName("table");
+        var i = 0;
+        while (i <= tables.length-1 ) {
+            tables[i].remove();
+            i++;
+        }
         modal.style.display = "none";
     }
 

@@ -38,8 +38,8 @@ body {
 #tScontrino{
     margin: 10px auto;
 }
-.datacol{
-  margin-bottom: 30px;
+[id^=elcloned]{
+  margin-top: 20px;
 }
 p[id^=pproduct]{
   display:inline-block;
@@ -109,6 +109,9 @@ span{
 }
 #bscontrino{
   position:static;
+    display: block;
+    margin: 0 auto;
+}
 }
 #buttonSearch{
   position: relative;
@@ -182,6 +185,7 @@ div#div_carrello {
   display:inline-block;
   color: orange;
   font-size: xxx-large;
+  margin-right:5px;
   width :auto;
 }
 
@@ -222,7 +226,7 @@ div#divForm {
   /* margin: 0 auto; */
   padding: 0;
   float:inline-start;
-  width: 60%;
+  /* width: 60%; */
 }
 @media screen and (max-width: 992px) {
   #formSearch{
@@ -239,9 +243,7 @@ div#divForm {
     line-height: 1.2;
   }
   #spesatext{font-size:medium;font-weight:bold;width: 100%;}
-.form-control-sm {
-font-size:0.7rem!important;
-}
+.form-control-sm {/* font-size:0.7rem!important; */}
 }
 
 [id^="p_prezzo"] {
@@ -273,9 +275,10 @@ p {
   margin-top:15px;margin: 0 auto;overflow:scroll;
 }
 
+
 .searched{
 font-size:0.8rem;
- margin-bottom:0;
+ margin-bottom:10px;
   }
   /*#formsearch{
     width:100%;
@@ -300,7 +303,7 @@ font-size:0.8rem;
     width:100%;
     text-overflow:unset;
     overflow:scroll;
-  font-size:1rem;
+    font-size: 0.8rem;
   }
   span[id^=pproduct]{
     font-size:0.50em;
@@ -349,7 +352,8 @@ font-size:0.7rem!important;
 [id^=info].badge.text-bg-light.info{
   font-size: 0.8em!important;
   pointer-events: all;
-  z-index:999;
+  vertical-align: bottom;
+  height: auto;
 }
 
 @keyframes toglicarrello {

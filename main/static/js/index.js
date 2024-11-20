@@ -11,19 +11,19 @@ var buttonScontrino, divScontrino, spanscontrino;
 var fulllist = [];
 var piuInfo = [];
 $(document).ready(function () {
-  var posizione = '<ul id="posizione">' +
-    '<li>Longitudine: <span id="lon">-</span></li>' +
-    '<li>Latitudine: <span id="lat">-</span></li>' +
-    '<li>Coordinate identificate in (data . ora): <span id="when">-</span></li>' +
-    '</ul>';
-  var mymodal = '<h2>Modal Example</h2>' +
-
-    '<button id="myBtn">Open Modal</button>' +
-    '<div id="myModal" class="modal">' +
-    '<div class="modal-content">' +
-    '<span class="close">&times;</span>' +
-    '<p>Some text in the Modal..</p>' +
-    '</div></div>';
+  
+  
+  
+  if (Modernizr.geolocation) {
+    navigator.geolocation.getCurrentPosition(geolocalizzami);
+  } else {
+    alert("geolocalizzazione non supportata dal browser!");
+  }
+  function geolocalizzami(position) {
+    document.getElementById("lon").innerHTML = position.coords.longitude;
+    document.getElementById("lat").innerHTML = position.coords.latitude;
+    document.getElementById("when").innerHTML = new Date(position.timestamp);
+  }
 
   buttonScontrino = document.createElement("button");
   divScontrino = document.createElement("div");
@@ -34,6 +34,7 @@ $(document).ready(function () {
   buttonScontrino.classList.add("me-auto");
   buttonScontrino.id = "bscontrino";
   buttonScontrino.appendChild(spanscontrino);
+  buttonScontrino.innerHTML='<i class="fad fa-2x fa-shopping-cart"></i>'+'Calcolo Scontrino Migliore';
   divScontrino.appendChild(buttonScontrino);
   var thisnode = document.getElementById('root2');
   thisnode.appendChild(divScontrino);
@@ -130,7 +131,7 @@ $('#bscontrino').hover(function(){
         headerRow2.append(headerCellPrezzo2);
 
         var sum = flaotPrices.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-        headerCellPrezzo2.textContent = sum;
+        headerCellPrezzo2.textContent = parseFloat(sum).toPrecision(3);
         headerCell2.textContent = "totale :";
         headerRow2.append(headerCell2);
         headerRow2.append(headerCellPrezzo2);
@@ -151,7 +152,7 @@ $('#bscontrino').hover(function(){
 
         headerCell.textContent = objData[0].dataset.name;
         headerCell_1.textContent = objData[0].dataset.activity+ " " +objData[0].dataset.strada;
-        headerCellPrezzo.textContent = objData[0].dataset.price;
+       // headerCellPrezzo.textContent = objData[0].dataset.price;
 
         headerCell.style.border = '1px solid black';
       }
@@ -182,7 +183,7 @@ function insertProduct() {
   var colProductName = [];
   var pPrezzo = [];
   var spanPrezzo = [];
-  var pLoTroviQui = [];
+  //var pLoTroviQui = [];
   var pSupermarketName = [];
   var imgLogo = [];
   var imgBestPrice = [];
@@ -379,11 +380,11 @@ function insertProduct() {
       //divprodotto[i].id = "div_" + el[i].name + "_" + el[i].supermercati.name;
       colImage[i].id = "col_Image_" + el[i].name + "_" + el[i].supermercati.name;
       colProductName[i].id = "colProductName_" + el[i].name + "_" + el[i].supermercati.name;
-      pLoTroviQui[i] = document.createElement("P");
+      colProductName[i].setAttribute("data-prodotto",el[i].name);
+      /*pLoTroviQui[i] = document.createElement("P");
       pLoTroviQui[i].id = "p_lotrovida";
-      pLoTroviQui[i].classList.add("badge", "text-bg-light");
-      //pLoTroviQui[sup] = document.createElement("p");
-      colProductName[i].appendChild(pLoTroviQui[i]);
+      pLoTroviQui[i].classList.add("badge", "text-bg-light");*/
+      //colProductName[i].appendChild(pLoTroviQui[i]);
       imgprodotto[i].setAttribute("alt", "Nessuna immagine !");
       imgprodotto[i].classList.add("img-fluid");
       imgprodotto[i].setAttribute("width", "24px");
@@ -405,12 +406,12 @@ function insertProduct() {
         '</tbody>' +
         '</table>';
       piuInfo[i].classList.add("badge", "text-bg-light","info");
-      piuInfo[i].innerText = "+";
+      piuInfo[i].innerText = "+ altri prezzi";
       piuInfo[i].id = "info_" + i;
       colProductName[i].appendChild(piuInfo[i]);
       $(colProductName[i]).click(function (e) {
         var tempEl = document.getElementById(e.target.id);
-        tableInfoCreate(lowest[0].prezzo,"prezzi alti");
+        tableInfoCreate(e.currentTarget.dataset.prodotto,"tutti i prezzi");
         console.log("cklcic");
       });
       if(el[i].inOfferta!==null){
@@ -456,8 +457,8 @@ function insertProduct() {
           }
         }
         pSupermarketName[sup].appendChild(spanPrezzo[pindex - 1]);
-        pLoTroviQui[i].appendChild(imgLogo[sup]);
-        pLoTroviQui[i].innerText = lowest.activity.strada;
+        //pLoTroviQui[i].appendChild(imgLogo[sup]);
+        //pLoTroviQui[i].innerText = lowest.activity.strada;
         //colProductName[i].appendChild(pSupermarketName[sup]);
         //colProductName[i].appendChild(imgBestPrice[i]);
         $(colImage[i]).append(activityOptions);
@@ -492,7 +493,7 @@ function insertProduct() {
 }
 function inCarrello(ev) {
   buttonScontrino.style.visibility = "visible";
-
+  buttonScontrino.scrollIntoView();
   var id = null;
   document.getElementById(ev.target.id).style.transform = "rotate(-3deg)";
   document.getElementById(ev.target.id).classList.add('clickbut');
@@ -554,7 +555,7 @@ function inCarrello(ev) {
 
 
 function tableInfoCreate(elements, headtext) {
-  const flaotPrices = [];
+  var myel = productsParse.find(item => item.name == elements);
   var tbl2 = document.createElement('table');
   const header = tbl2.createTHead();
   tbl2.append(header);
@@ -568,8 +569,8 @@ function tableInfoCreate(elements, headtext) {
   //tbl.style.width = '200px';
   tbl2.style.border = '1px solid black';
   header.innerHTML = '<span class="badge text-bg-info">' + headtext + ' </span>';
-  for (let i = 0; i <= (elements.length - 1); i++) {
-    var objData = elements[i].prezzo;
+  for (let i = 0; i <= (myel.prezzo.length - 1); i++) {
+    var objData = myel.prezzo[i].prezzo;
     if (objData === "0.00") { continue }
     
       
@@ -588,9 +589,9 @@ function tableInfoCreate(elements, headtext) {
     headerRow[i].append(headerCellPrezzo[i]);
     header.append(headerRow[i]);
 
-    headerCell[i].textContent = parseFloat(elements[i].prezzo).toPrecision(3);
+    headerCell[i].textContent = parseFloat(myel.prezzo[i].prezzo).toPrecision(3);
 
-    headerCell_1[i].textContent = elements[i].activity.name + " " + elements[i].activity.strada;
+    headerCell_1[i].textContent = myel.prezzo[i].activity.name + " " + myel.prezzo[i].activity.strada;
       
 
     headerCell[i].style.border = '1px solid black';
